@@ -28,8 +28,8 @@
     line-height: 25px;
 }
 
-.loginPage_right_title{
-}
+/* .loginPage_right_title{
+} */
 .loginPage_right_title_Lg{
     font-size: 24px;
     margin: 20px 0 10px;
@@ -40,15 +40,15 @@
     color: var(--textGrayColor);
     margin-bottom: 30px;
 }
-.loginPage_right_content{
+/* .loginPage_right_content{
 
-}
+} */
 .loginPage_right_content_name{
     display: flex;
     justify-content: space-between;
 }
-.loginPage_right_content_fullname{
-}
+/* .loginPage_right_content_fullname{
+} */
 .inputName{
     height: 43px;
     font-weight: 600;
