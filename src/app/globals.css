@@ -1,29 +1,43 @@
 :root {
-    --textColor2: #2D31FA;
-    --textColor: #051367;
-    --textGrayColor: #8692A6;
-    --bgColor: #DFF6FF;
-    --bgColor2: #5D8BF4;
+  --textColor2: #2d31fa;
+  --textColor: #051367;
+  --textGrayColor: #8692a6;
+  --bgColor: #dff6ff;
+  --bgColor2: #5d8bf4;
+}
 
-  }
-
-*{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 html,
-body{
-    width: 100vw;
-    height: 100vh;
-    overflow-x: hidden;
-    background-color: white;
-    color: black;
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  background-color: white;
+  color: black;
 }
-a{
-    text-decoration: none;
-    color: var(--textColor);
+a {
+  text-decoration: none;
+  color: var(--textColor);
 }
 input::placeholder {
-    color: var(--textGrayColor);
+  color: var(--textGrayColor);
 }
+button:hover {
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  opacity: 0.9;
+  cursor: pointer;
+}
+/* xoa mui then the input type number  tren cac trinh duyet web khac nhau*/
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* check tren firefox */
+/* input[type=number] {
+  -moz-appearance: textfield;
+} */
