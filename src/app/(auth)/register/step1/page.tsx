@@ -87,7 +87,9 @@ export default function login() {
           </div>
         </div>
         <div className={styles.loginPage_right_bottom}>
+          <Link href="/register/step2">
           <button className={styles.btnContiue}>Continue</button>
+          </Link>
           <span className={styles.txtHaveAcc}>Already have account?</span>
           <Link className={styles.linkLogin} href="/login">Login</Link>
         </div>
