@@ -85,6 +85,15 @@ export default function login() {
               placeholder="Your password"
             />
           </div>
+          <div className={styles.titleInput}>Confirm Password</div>
+          <div className={styles.relative_position}>
+            <LockOutlined className={styles.icon} />
+            <input
+              className={styles.inputfill}
+              type="password"
+              placeholder="Confirm your password"
+            />
+          </div>
         </div>
         <div className={styles.loginPage_right_bottom}>
           <Link href="/register/step2">
