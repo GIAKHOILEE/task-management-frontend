@@ -38,7 +38,7 @@
     font-size: 16px;
     font-weight: 700;
     color: var(--textGrayColor);
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 /* .loginPage_right_content{
 
@@ -67,7 +67,7 @@
     color: var(--textGrayColor);
 }
 .titleInput{
-    margin: 18px 0 5px;
+    margin: 15px 0 5px;
 }
 .icon{
     position: absolute;
