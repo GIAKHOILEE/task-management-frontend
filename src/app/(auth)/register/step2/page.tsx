@@ -140,22 +140,24 @@ export default function login() {
           <div className={styles.loginPage_right_top_back}>
             <Link href="/register/step1">
               <LeftOutlined />
-              <span className={styles.textGray}>Back</span>
+              <span className={styles.textGray}>Quay lại</span>
             </Link>
           </div>
           <div className={styles.loginPage_right_top_step}>
-            <div className={styles.textGray}>Step 1 of 2</div>
-            <div>Signup</div>
+            <div className={styles.textGray}>Bước 2 / 2</div>
+            <div>Đăng ký</div>
           </div>
         </div>
         <div className={styles.loginPage_right_title}>
-          <div className={styles.loginPage_right_title_Lg}>Check your Mail</div>
+          <div className={styles.loginPage_right_title_Lg}>
+            Kiểm Tra Email Của Bạn
+          </div>
           <div className={styles.loginPage_right_title_sm}>
-            We,ve sent a 6-digit confirmation code to{" "}
+            Chúng tôi đã gửi mã xác nhận gồm 6 chữ số tới{" "}
             <span className={styles.loginPage_right_title_sm_mail}>
               {email}
             </span>
-            . Make sure you enter correct code.
+            . Đảm bảo bạn nhập đúng mã.
           </div>
         </div>
         <div className={styles.loginPage_right_content}>
@@ -178,11 +180,11 @@ export default function login() {
         </div>
         <div className={styles.loginPage_right_bottom}>
           <button className={styles.btnContiue} onClick={handleVerify}>
-            Verify
+            Xác Nhận
           </button>
-          <span className={styles.txtHaveAcc}>Didn’t Recieve code?</span>
+          <span className={styles.txtHaveAcc}>Không nhận được mã?</span>
           <span className={styles.linkLogin} onClick={handResetSendcode}>
-            Resend Code
+            Gửi lại mã
           </span>
         </div>
       </div>
