@@ -33,17 +33,15 @@ export default function login() {
     let isValid = true;
 
     if (!isValidEmail(email)) {
-      setEmailError("Please enter a valid email!");
+      setEmailError("Vui lòng nhập email hợp lệ!");
       isValid = false;
     }
     if (password.length < 6) {
-      setPasswordError("Passwords must be at least 6 characters!");
+      setPasswordError("Mật khẩu phải có ít nhất 6 ký tự!");
       isValid = false;
     }
     if (password !== confirmPassword) {
-      setConfirmPasswordError(
-        "Password and confirmation password do not match!"
-      );
+      setConfirmPasswordError("Mật khẩu và mật khẩu xác nhận không khớp!");
       isValid = false;
     }
 
@@ -68,7 +66,7 @@ export default function login() {
         const resultText = await response.text();
 
         if (resultText === "Email already exists in the database.") {
-          setEmailError("This email already exists.");
+          setEmailError("Email này đã tồn tại.");
           isValid = false;
         }
       } catch (error) {
@@ -106,40 +104,40 @@ export default function login() {
           <div className={styles.loginPage_right_top_back}>
             <Link href="/login">
               <LeftOutlined />
-              <span className={styles.textGray}>Back</span>
+              <span className={styles.textGray}>Quay lại</span>
             </Link>
           </div>
           <div className={styles.loginPage_right_top_step}>
-            <div className={styles.textGray}>Step 1 of 2</div>
-            <div>Signup</div>
+            <div className={styles.textGray}>Bước 1 / 2</div>
+            <div>Đăng ký</div>
           </div>
         </div>
         <div className={styles.loginPage_right_title}>
           <div className={styles.loginPage_right_title_Lg}>
-            Register your account
+            Đăng Ký Tài Khoản
           </div>
           <div className={styles.loginPage_right_title_sm}>
-            Fill the details bellow to submit register account.
+            Điền thông tin bên dưới để đăng ký tài khoản
           </div>
         </div>
         <div className={styles.loginPage_right_content}>
           <div className={styles.loginPage_right_content_name}>
             <div className={styles.loginPage_right_content_fullname}>
-              <div className={styles.titleInput}>First name</div>
+              <div className={styles.titleInput}>Họ</div>
               <input
                 className={styles.inputName}
                 type="text"
-                placeholder="Your firstname"
+                placeholder="Họ của bạn"
                 value={firstname}
                 onChange={(e) => setFirstname(e.target.value)}
               />
             </div>
             <div className={styles.loginPage_right_content_fullname}>
-              <div className={styles.titleInput}>Last name</div>
+              <div className={styles.titleInput}>Tên</div>
               <input
                 className={styles.inputName}
                 type="text"
-                placeholder="Your lastname"
+                placeholder="Tên của bạn"
                 value={lastname}
                 onChange={(e) => setLastname(e.target.value)}
               />
@@ -151,7 +149,7 @@ export default function login() {
             <input
               className={styles.inputfill}
               type="text"
-              placeholder="Your email"
+              placeholder="email của bạn"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -168,13 +166,13 @@ export default function login() {
               placeholder="Your phone number"
             />
           </div> */}
-          <div className={styles.titleInput}>Password</div>
+          <div className={styles.titleInput}>Mật khẩu</div>
           <div className={styles.relative_position}>
             <LockOutlined className={styles.icon} />
             <input
               className={styles.inputfill}
               type="password"
-              placeholder="Your password"
+              placeholder="Mật khẩu của bạn"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -182,13 +180,13 @@ export default function login() {
               <div className={styles.errorInput}>{passwordError}</div>
             )}
           </div>
-          <div className={styles.titleInput}>Confirm Password</div>
+          <div className={styles.titleInput}>Xác nhận mật khẩu</div>
           <div className={styles.relative_position}>
             <LockOutlined className={styles.icon} />
             <input
               className={styles.inputfill}
               type="password"
-              placeholder="Confirm your password"
+              placeholder="Xác nhận mật khẩu của bạn"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -199,11 +197,11 @@ export default function login() {
         </div>
         <div className={styles.loginPage_right_bottom}>
           <button className={styles.btnContiue} onClick={handleContinue}>
-            Continue
+            Tiếp Tục
           </button>
-          <span className={styles.txtHaveAcc}>Already have account?</span>
+          <span className={styles.txtHaveAcc}>Đã có tài khoản</span>
           <Link className={styles.linkLogin} href="/login">
-            Login
+            Đăng Nhập
           </Link>
         </div>
       </div>

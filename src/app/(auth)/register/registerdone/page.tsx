@@ -6,17 +6,12 @@ export default function registerdone() {
   return (
     <div className={styles.registerdoneContainer}>
       <div className={styles.registerdoneContainer_form}>
-        <div className={styles.form_title}>Sign Up Success</div>
+        <div className={styles.form_title}>Đăng Ký Thành Công</div>
         <div className={styles.form_icon}>
-          <Image
-            src="/Ok.png"
-            width={50}
-            height={50}
-            alt="Picture of the author"
-          />
+          <Image src="/Ok.png" width={50} height={50} alt="Picture" />
         </div>
         <Link href="/login">
-          <button className={styles.form_button}>Login</button>
+          <button className={styles.form_button}>Đăng Nhập</button>
         </Link>
       </div>
     </div>
