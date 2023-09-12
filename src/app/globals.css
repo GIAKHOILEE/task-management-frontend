@@ -4,12 +4,13 @@
   --textGrayColor: #8692a6;
   --bgColor: #dff6ff;
   --bgColor2: #5d8bf4;
+  --bgColor3: #8cdfff;
 }
 
-*{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 html,
 body {
@@ -32,8 +33,8 @@ button:hover {
   cursor: pointer;
 }
 /* xoa mui then the input type number  tren cac trinh duyet web khac nhau*/
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
