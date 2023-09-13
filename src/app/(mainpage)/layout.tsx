@@ -1,15 +1,19 @@
 "use client";
 import MenuConponent from "@/component/menuComponent/MenuConponent";
-
+import HeaderComponent from "@/component/headerComponent/HeaderComponent";
+import styles from "./mainpage.module.css";
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <div className={styles.main_layout}>
       <MenuConponent />
-      {children}
+      <div className={styles.main_layout_content}>
+        <HeaderComponent />
+        {children}
+      </div>
     </div>
   );
 }

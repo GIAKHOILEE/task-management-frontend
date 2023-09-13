@@ -1,0 +1,7 @@
+.main_layout {
+  display: flex;
+}
+.main_layout_content {
+  /* flex-shrink: 0; */
+  width: 100%;
+}
