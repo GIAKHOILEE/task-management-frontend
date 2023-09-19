@@ -1,15 +1,22 @@
+"use client";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function withAuth(Component: any) {
   return function ProtectedRoute(props: any) {
     const router = useRouter();
-    const isLoggedIn =
-      !!localStorage.getItem(
-        "token"
-      ); /* Kiểm tra xác thực từ localStorage, cookies, ... */
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        setIsLoggedIn(true);
+      } else {
+        router.push("/login");
+      }
+    }, []);
 
     if (!isLoggedIn) {
-      router.push("/login"); // hoặc bất kỳ URL đăng nhập nào bạn muốn
       return null;
     }
 

@@ -34,7 +34,7 @@ export default function MenuConponent() {
             Dashboard
           </div>
         </Link>
-        <Link href="/project">
+        <Link href="/projectmanager">
           <div className={styles.menu_content_item}>
             <img
               className={styles.menu_content_icon}

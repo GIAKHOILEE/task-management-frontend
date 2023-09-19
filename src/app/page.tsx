@@ -6,4 +6,4 @@ function Home() {
   return <div>HOME</div>;
 }
 
-export default withAuth(Home);
+export default Home;
