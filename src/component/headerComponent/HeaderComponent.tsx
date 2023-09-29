@@ -64,7 +64,7 @@ export default function HeaderComponent() {
         {openNotifi && (
           <div className={styles.header_notification_container}>
             <div className={styles.header_notification_container_item}>
-              <CircleAvatarComponent />
+              <CircleAvatarComponent email={user.email} />
               <div>
                 <div className={styles.header_notification_container_item_name}>
                   Le Ha Gia Khoi

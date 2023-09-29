@@ -52,9 +52,6 @@ export default function CircleAvatarComponent({ email, className }: any) {
   }, []);
 
   return (
-    // <div className={styles.circleAvatar}>
-    //   {imgUrl && <img className={styles.Avatar} src={imgUrl} />}
-    // </div>
     <div className={combinedClass}>
       {imgUrl && <img className={styles.Avatar} src={imgUrl} />}
     </div>
