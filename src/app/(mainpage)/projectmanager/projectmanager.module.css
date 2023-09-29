@@ -1,3 +1,217 @@
 .projectmanager {
-  display: block;
+  padding: 23px 50px;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+.icon {
+  width: 30px;
+  height: 30px;
+}
+.projectmanager_navigation {
+  color: #999;
+}
+.projectmanager_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.projectmanager_Btncreate {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--bgColor);
+  font-size: 16px;
+  margin-right: 28px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: var(--textColor);
+}
+.projectmanager_title {
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--textColor);
+  margin: 22px 0 32px;
+}
+.table {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.table_column {
+  width: 33.3%;
+  /* margin: 0 15px; */
+  margin-right: 30px;
+  padding: 20px;
+  background-color: var(--bgColorGray);
+  border-radius: 10px;
+}
+.table_column_title_1,
+.table_column_title_2,
+.table_column_title {
+  font-size: 16px;
+  font-weight: 600;
+}
+.table_column_title_1::before,
+.table_column_title_2::before,
+.table_column_title::before {
+  content: "";
+  margin: 0px 10px 1px;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.table_column_title::after,
+.table_column_title::before {
+  background-color: #5030e5;
+}
+.table_column_title_1::after,
+.table_column_title_1::before {
+  background-color: #ffa500;
+}
+.table_column_title_2::after,
+.table_column_title_2::before {
+  background-color: #8bc48a;
+}
+.table_column_title_1::after,
+.table_column_title_2::after,
+.table_column_title::after {
+  content: "";
+  width: 100%;
+  height: 3px;
+  display: inline-block;
+  margin-bottom: 28px;
+  margin-top: 23px;
+}
+
+/* from create project  */
+.projectmanager_crateProject_form {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.575);
+}
+.crateProject_form {
+  width: 500px;
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #818080;
+  margin: 40px 0 auto;
+}
+.crateProject_form_title {
+  color: var(--textColor);
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.crateProject_form_label {
+  font-size: 16px;
+  font-weight: 500;
+}
+.crateProject_form_input {
+  width: 100%;
+  height: 40px;
+  margin: 5px 0 16px;
+  border: 1px solid gray;
+  padding: 10px;
+  border-radius: 5px;
+}
+.crateProject_form_btn {
+  display: flex;
+  justify-content: space-between;
+}
+.crateProject_form_btnCreate {
+  margin-top: 20px;
+  width: 150px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--bgColor2);
+  color: white;
+}
+.crateProject_form_btnClose {
+  margin-top: 20px;
+  width: 140px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: white;
+  border: 1px solid var(--bgColor2);
+  color: var(--bgColor2);
+}
+
+.crateProject_form_selectDif {
+  display: flex;
+  margin: 5px 0 16px;
+}
+.item_project_level_easy,
+.item_project_level_normal,
+.item_project_level_hard {
+  text-align: center;
+  margin-right: 40px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0 10px;
+  /* width: 50px; */
+  height: 23px;
+  border-radius: 5px;
+  line-height: 23px;
+}
+.item_project_level_easy {
+  background-color: rgb(198, 236, 198);
+  color: green;
+}
+
+.item_project_level_normal {
+  background-color: rgb(247, 247, 191);
+  color: #d58d49;
+}
+
+.item_project_level_hard {
+  background-color: rgb(246, 215, 215);
+  color: red;
+}
+/* loading  */
+.loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Đảm bảo nó nằm trên tất cả các phần tử khác */
+}
+
+.spinner {
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 5px solid #fff;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.error {
+  color: red;
+  margin-bottom: 10px;
 }

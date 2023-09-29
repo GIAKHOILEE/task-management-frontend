@@ -71,13 +71,14 @@
   color: var(--textColor);
 }
 .header_infomation_menu {
-  width: 100%;
+  width: 200px;
   border: 1px solid var(--textColor);
   position: absolute;
   top: 39px;
   right: 0px;
   background-color: white;
   border-radius: 0 0 5px 5px;
+  z-index: 10;
 }
 .header_infomation_menu_item {
   padding: 10px 20px;

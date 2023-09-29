@@ -1,0 +1,198 @@
+.item_project {
+  width: 100%;
+  padding: 20px;
+  background-color: white;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.item_project_level_easy,
+.item_project_level_normal,
+.item_project_level_hard {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 5px;
+  line-height: 23px;
+  width: 60px;
+  padding: 5px 10px;
+}
+.item_project_level_easy {
+  background-color: rgb(198, 236, 198);
+  color: green;
+}
+
+.item_project_level_normal {
+  background-color: rgb(247, 247, 191);
+  color: #d58d49;
+}
+
+.item_project_level_hard {
+  background-color: rgb(246, 215, 215);
+  color: red;
+}
+.item_project_level_complete {
+  background-color: var(--bgColor);
+  color: var(--textColor);
+  margin-left: 10px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 5px;
+  line-height: 23px;
+  padding: 5px 10px;
+}
+.item_project_name {
+  color: black;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  margin: 8px 0;
+}
+.item_project_description {
+  color: var(--textGrayColor);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin-bottom: 15px;
+}
+.item_project_date {
+  color: black;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.item_project_owner {
+  display: flex;
+  align-items: center;
+}
+.icon {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  right: 20px;
+}
+.icon:hover {
+  background-color: var(--bgColor);
+  cursor: pointer;
+  border-radius: 50px;
+}
+.item_project_menu {
+  position: absolute;
+  right: 20px;
+  top: 36px;
+  text-align: end;
+  background: white;
+  border-radius: 5px;
+  border: 1px solid var(--textColor);
+}
+.item_project_menu_update {
+  color: var(--textColor);
+  padding: 10px;
+}
+.item_project_menu_delete {
+  color: red;
+  padding: 10px;
+}
+.item_project_menu_update:hover,
+.item_project_menu_delete:hover {
+  background-color: var(--bgColor);
+}
+
+/* update dự án  */
+.projectmanager_crateProject_form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  z-index: 100;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.575);
+}
+.crateProject_form {
+  width: 500px;
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #818080;
+  margin: 40px 0 auto;
+}
+.crateProject_form_title {
+  color: var(--textColor);
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.crateProject_form_label {
+  font-size: 16px;
+  font-weight: 500;
+}
+.crateProject_form_day {
+  font-weight: 700;
+}
+.crateProject_form_input {
+  width: 100%;
+  height: 40px;
+  margin: 5px 0 16px;
+  border: 1px solid gray;
+  padding: 10px;
+  border-radius: 5px;
+}
+.crateProject_form_btn {
+  display: flex;
+  justify-content: space-between;
+}
+.crateProject_form_btnCreate {
+  margin-top: 20px;
+  width: 150px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--bgColor2);
+  color: white;
+}
+.crateProject_form_btnClose {
+  margin-top: 20px;
+  width: 140px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: white;
+  border: 1px solid var(--bgColor2);
+  color: var(--bgColor2);
+}
+
+.crateProject_form_selectDif {
+  display: flex;
+  margin: 5px 0 16px;
+}
+.update_project_level_easy,
+.update_project_level_normal,
+.update_project_level_hard {
+  text-align: center;
+  margin-right: 40px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0 10px;
+  /* width: 50px; */
+  height: 23px;
+  border-radius: 5px;
+  line-height: 23px;
+}
+.update_project_level_easy {
+  background-color: rgb(198, 236, 198);
+  color: green;
+}
+
+.update_project_level_normal {
+  background-color: rgb(247, 247, 191);
+  color: #d58d49;
+}
+
+.update_project_level_hard {
+  background-color: rgb(246, 215, 215);
+  color: red;
+}
