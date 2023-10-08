@@ -44,6 +44,7 @@ export default function projectmanager() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
+  const [isUserProject, setIsUserProject] = useState(false);
   const [checkDay, setCheckDay] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -151,8 +152,17 @@ export default function projectmanager() {
       });
 
       if (response.ok) {
+        const data = await response.json();
+
         alert("tạo project thành công");
         setOpenCreateForm(false);
+
+        const memberData = {
+          projectId: data.projectId,
+          userId: data.owner.userId,
+          role: "owner",
+        };
+        addMemberToProject(memberData);
         fetchProjects();
       }
       // const data = await response.json();
@@ -175,6 +185,7 @@ export default function projectmanager() {
     fetchProjects();
   }
 
+  //chỉnh sửa project
   async function updateProject(projectId: string, newStatus: string) {
     setIsLoading(true);
 
@@ -198,6 +209,60 @@ export default function projectmanager() {
     }
   }
 
+  // thêm userowner vào UserProject
+  const addMemberToProject = async (memberData: any) => {
+    try {
+      const response = await fetch("http://localhost:8080/project/add-member", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(memberData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // lấy toàn bộ userProject của 1 project
+  async function getProjectUsers(projectID: any) {
+    const userObject = JSON.parse(localStorage.getItem("user") as string);
+    const userId = userObject.userId;
+    try {
+      const response = await fetch(
+        `http://localhost:8080/project/${projectID}/user-in-project`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      // console.log(data);
+      const isUserInProject = data.some((user: any) => user.userId === userId);
+      // alert(userId);
+      if (isUserInProject) {
+        setIsUserProject(true);
+      } else {
+        setIsUserProject(false);
+        alert("bạn không phải thành viên của dự án");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <div className={styles.projectmanager}>
       <div>
@@ -246,18 +311,31 @@ export default function projectmanager() {
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
+                            onClick={async (e) => {
+                              await getProjectUsers(item.projectId);
+                            }}
                           >
-                            <ItemProjectComponent
-                              projectId={item.projectId}
-                              owner_project={item.owner}
-                              project_name={item.projectName}
-                              project_description={item.projectDescription}
-                              level={item.level}
-                              status={item.status}
-                              start_date={item.startDate}
-                              end_date={item.endDate}
-                              fetchData={fetchProjects}
-                            />
+                            <Link href={`/projectmanager/${item.projectId}`}>
+                              <div
+                                onClick={(e) => {
+                                  if (!isUserProject) {
+                                    e.preventDefault();
+                                  }
+                                }}
+                              >
+                                <ItemProjectComponent
+                                  projectId={item.projectId}
+                                  owner_project={item.owner}
+                                  project_name={item.projectName}
+                                  project_description={item.projectDescription}
+                                  level={item.level}
+                                  status={item.status}
+                                  start_date={item.startDate}
+                                  end_date={item.endDate}
+                                  fetchData={fetchProjects}
+                                />
+                              </div>
+                            </Link>
                           </div>
                         )}
                       </Draggable>
@@ -293,18 +371,31 @@ export default function projectmanager() {
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
+                            onClick={async (e) => {
+                              await getProjectUsers(item.projectId);
+                            }}
                           >
-                            <ItemProjectComponent
-                              projectId={item.projectId}
-                              owner_project={item.owner}
-                              project_name={item.projectName}
-                              project_description={item.projectDescription}
-                              level={item.level}
-                              status={item.status}
-                              start_date={item.startDate}
-                              end_date={item.endDate}
-                              fetchData={fetchProjects}
-                            />
+                            <Link href={`/projectmanager/${item.projectId}`}>
+                              <div
+                                onClick={(e) => {
+                                  if (!isUserProject) {
+                                    e.preventDefault();
+                                  }
+                                }}
+                              >
+                                <ItemProjectComponent
+                                  projectId={item.projectId}
+                                  owner_project={item.owner}
+                                  project_name={item.projectName}
+                                  project_description={item.projectDescription}
+                                  level={item.level}
+                                  status={item.status}
+                                  start_date={item.startDate}
+                                  end_date={item.endDate}
+                                  fetchData={fetchProjects}
+                                />
+                              </div>
+                            </Link>
                           </div>
                         )}
                       </Draggable>
@@ -338,18 +429,31 @@ export default function projectmanager() {
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
+                            onClick={async (e) => {
+                              await getProjectUsers(item.projectId);
+                            }}
                           >
-                            <ItemProjectComponent
-                              projectId={item.projectId}
-                              owner_project={item.owner}
-                              project_name={item.projectName}
-                              project_description={item.projectDescription}
-                              level={item.level}
-                              status={item.status}
-                              start_date={item.startDate}
-                              end_date={item.endDate}
-                              fetchData={fetchProjects}
-                            />
+                            <Link href={`/projectmanager/${item.projectId}`}>
+                              <div
+                                onClick={(e) => {
+                                  if (!isUserProject) {
+                                    e.preventDefault();
+                                  }
+                                }}
+                              >
+                                <ItemProjectComponent
+                                  projectId={item.projectId}
+                                  owner_project={item.owner}
+                                  project_name={item.projectName}
+                                  project_description={item.projectDescription}
+                                  level={item.level}
+                                  status={item.status}
+                                  start_date={item.startDate}
+                                  end_date={item.endDate}
+                                  fetchData={fetchProjects}
+                                />
+                              </div>
+                            </Link>
                           </div>
                         )}
                       </Draggable>

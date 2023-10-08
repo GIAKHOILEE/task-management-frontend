@@ -1,7 +1,7 @@
 .menu {
+  position: fixed;
   width: 260px;
   height: 100vh;
-  flex-shrink: 0;
 }
 .menu_head {
   height: 90px;
