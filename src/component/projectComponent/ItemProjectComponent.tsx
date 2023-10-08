@@ -2,6 +2,7 @@
 import styles from "./ItemProjectComponent.module.css";
 import CircleAvatarComponent from "../circleAvatarComponent/CircleAvatarComponent";
 import { useState } from "react";
+import Alert from "../alertComponent/AlertComponent";
 interface ProjectItemProps {
   projectId: string;
   owner_project: string;
@@ -54,6 +55,17 @@ export default function ItemProjectComponent({
   const [endDate, setEndDate] = useState(end_date);
   const [checkDay, setCheckDay] = useState("");
 
+  //alert
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState<
+    "success" | "warning" | "error" | ""
+  >("");
+
+  const user = localStorage.getItem("user");
+  const emailUser = user ? JSON.parse(user).email : null;
+  // alert(emailUser);
+
   //delete project
   async function deleteProject() {
     try {
@@ -68,7 +80,10 @@ export default function ItemProjectComponent({
         }
       );
       if (response.ok) {
-        alert("xóa thành công");
+        // setAlertType("success");
+        // setAlertMessage("Xóa thành công");
+        // setShowAlert(true);
+
         setOpenMenu(false);
         fetchData();
       }
@@ -98,13 +113,16 @@ export default function ItemProjectComponent({
         }
       );
       if (response.ok) {
+        // setAlertType("success");
+        // setAlertMessage("Cập nhật thành công");
+        // setShowAlert(true);
         alert("cập nhật thành công");
         setOpenUpdate(false);
         setOpenMenu(false);
         fetchData();
       }
     } catch (error) {
-      console.error("Error while updating project:", error);
+      console.error(error);
     }
   }
   // kiểm tra ngày
@@ -122,24 +140,51 @@ export default function ItemProjectComponent({
   return (
     <>
       <div className={styles.item_project}>
+        {/* {showAlert && alertType && (
+          <Alert type={alertType} message={alertMessage} />
+        )} */}
         <img
           className={styles.icon}
           src="/iconMenuVerticalicon.png"
           alt=""
-          onClick={() => setOpenMenu(true)}
+          onClick={(event) => {
+            event.preventDefault();
+            setOpenMenu(!openMenu);
+            event.stopPropagation();
+          }}
         />
 
         {openMenu && (
-          <div className={styles.item_project_menu}>
+          <div
+            className={styles.item_project_menu}
+            onClick={(event) => {
+              event.preventDefault();
+            }}
+          >
             <div
               className={styles.item_project_menu_update}
-              onClick={() => setOpenUpdate(true)}
+              // onClick={() => setOpenUpdate(true)}
+              onClick={(e) => {
+                if (emailUser === owner_project) {
+                  setOpenUpdate(true);
+                } else {
+                  alert("bạn không phải người quản lý dự án này");
+                  setOpenMenu(false);
+                }
+              }}
             >
               Chỉnh sửa dự án
             </div>
             <div
               className={styles.item_project_menu_delete}
-              onClick={deleteProject}
+              onClick={(e) => {
+                if (emailUser === owner_project) {
+                  deleteProject();
+                } else {
+                  alert("bạn không phải là người quản lý dự án này");
+                  setOpenMenu(false);
+                }
+              }}
             >
               Xóa Dự án
             </div>
@@ -172,7 +217,12 @@ export default function ItemProjectComponent({
         </div>
       </div>
       {openUpdate && (
-        <div className={styles.projectmanager_crateProject_form}>
+        <div
+          className={styles.projectmanager_crateProject_form}
+          onClick={(event) => {
+            event.preventDefault();
+          }}
+        >
           <div className={styles.crateProject_form}>
             <div className={styles.crateProject_form_title}>
               Chỉnh sửa dự án

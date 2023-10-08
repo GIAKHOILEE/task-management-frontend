@@ -35,7 +35,6 @@ export default function changeInformation() {
       "Content-Type": "application/json",
       ...(token ? { Authorization: `${token}` } : {}),
     };
-
     fetch("http://localhost:8080/user/profile", {
       method: "GET",
       headers: headers,
@@ -94,7 +93,7 @@ export default function changeInformation() {
     };
     try {
       const response = await fetch("http://localhost:8080/user/update", {
-        method: "Put",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           email: email,
@@ -103,7 +102,7 @@ export default function changeInformation() {
       });
       if (response.ok) {
         const data = await response.json();
-        // alert("Update thành công:");
+        alert("Update thành công:");
         localStorage.setItem("user", JSON.stringify(payload));
         setUpdateDone(true);
       } else {

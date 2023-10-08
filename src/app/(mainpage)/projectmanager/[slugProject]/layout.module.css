@@ -1,0 +1,168 @@
+.slug_layout {
+  padding: 23px 50px;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+.slug_layout_route {
+  color: var(--textGrayColor);
+  font-size: 16px;
+  font-weight: 400;
+}
+.slug_layout_route_main {
+  color: var(--textColor);
+}
+.layout_grouproute {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  width: 425px;
+  height: 52px;
+  border-radius: 5px;
+  border: 1px solid #999;
+}
+.layout_grouproute:hover {
+  cursor: pointer;
+}
+.layout_grouproute_item_choose,
+.layout_grouproute_item {
+  width: 100%;
+  text-align: center;
+  line-height: 52px;
+}
+.layout_grouproute_item_choose {
+  font-weight: 500;
+  color: var(--textColor);
+  border-bottom: 3px solid var(--textColor);
+}
+.layout_people {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.layout_avatar {
+  display: flex;
+}
+.layout_avatar_add {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+.layout_avatar_add_icon {
+  width: 100%;
+  height: 100%;
+}
+.layout_avatar_add:hover {
+  cursor: pointer;
+}
+.layout_avatar_add:hover::before {
+  width: 100px;
+  content: "thêm thành viên";
+  position: absolute;
+  top: -25px;
+  right: 0;
+  text-align: center;
+  border-radius: 5px;
+  color: #000;
+  padding: 2px 5px;
+  border: 1px solid #ccc;
+  font-size: 0.8em;
+}
+
+/* peopple box  */
+.box_container {
+  width: 100%;
+  height: 100%;
+  background-color: #0000008f;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.box_addread_people {
+  width: 500px;
+  height: 600px;
+  padding: 20px;
+  position: relative;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 0 10px rgb(96, 95, 95);
+}
+.icon_glass {
+  left: 30px;
+  top: 28px;
+  width: 28px;
+  position: absolute;
+}
+.box_addread_people_search {
+  width: 100%;
+  height: 45px;
+  border: 1px solid var(--textGrayColor);
+  padding-left: 50px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+.box_addread_people_select_choose {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+  border: 1px solid var(--textGrayColor);
+}
+.box_addread_people_content {
+  width: 100%;
+  height: 84%;
+  margin-top: 20px;
+  padding: 0 0 20px;
+  overflow-y: scroll;
+}
+.box_addread_people_content_item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  margin-bottom: 5px;
+  border-bottom: 1px solid var(--textGrayColor);
+}
+.box_content_item_name {
+  margin-left: 10px;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+.box_content_item_email {
+  margin-left: 10px;
+  font-size: 16px;
+  color: var(--textColor);
+}
+.box_content_item_btn {
+  margin-left: auto;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--bgColor3);
+}
+.box_addread_people_select_choose:hover,
+.box_content_item_btn:hover {
+  cursor: pointer;
+  background-color: var(--bgColor3);
+}
+.box_content_item_btn_delete {
+  margin-left: auto;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  color: red;
+  background-color: rgb(244, 215, 215);
+}
+.box_content_item_btn_delete:hover {
+  cursor: pointer;
+  background-color: rgb(236, 139, 139);
+}
+.box_content_item_btn_owner {
+  margin-left: auto;
+  color: var(--textColor);
+  font-weight: 500;
+}
