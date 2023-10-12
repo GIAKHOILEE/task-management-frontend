@@ -7,7 +7,7 @@ import {
   DropResult,
   DraggableLocation,
 } from "react-beautiful-dnd";
-
+import React from "react";
 import ItemProjectComponent from "@/component/projectComponent/ItemProjectComponent";
 import Link from "next/link";
 import { useEffect, useState } from "react";

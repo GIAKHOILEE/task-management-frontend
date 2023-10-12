@@ -5,7 +5,6 @@ import styles from "./mainpage.module.css";
 import withAuth from "@/component/auth/HigherOrderComponent";
 import Loading from "@/component/loadingComponent/loading";
 import { Suspense } from "react";
-
 function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className={styles.main_layout}>
@@ -13,8 +12,8 @@ function MainLayout({ children }: { children: React.ReactNode }) {
       <MenuConponent />
       <div className={styles.main_layout_content}>
         <HeaderComponent />
-        {children}
-        {/* <Suspense fallback={<Loading />}>{children}</Suspense> */}
+        {/* {children} */}
+        <Suspense fallback={<Loading />}>{children}</Suspense>
       </div>
     </div>
   );

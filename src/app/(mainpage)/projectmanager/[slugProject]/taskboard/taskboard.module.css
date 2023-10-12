@@ -1,0 +1,165 @@
+.btn_create_task {
+  position: absolute;
+  right: 70px;
+  top: 120px;
+  border-radius: 5px;
+  border: none;
+  color: var(--textColor);
+  padding: 10px 20px;
+  background-color: var(--bgColor);
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+.btn_create_task_icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}
+.table_container {
+  display: flex;
+  justify-content: space-between;
+}
+.table_column {
+  flex: 1;
+  margin-right: 20px;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: var(--bgColorGray);
+}
+.table_title {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.table_title::before {
+  content: "";
+  margin: 0px 10px 1px;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.table_title::after {
+  content: "";
+  width: 100%;
+  height: 3px;
+  display: inline-block;
+  /* margin-bottom: 10px; */
+  margin-top: 10px;
+}
+.todoTitle::before,
+.todoTitle::after {
+  background-color: #5030e5;
+}
+.doingTitle::before,
+.doingTitle::after {
+  background-color: #ffa500;
+}
+.reviewTitle::before,
+.reviewTitle::after {
+  background-color: rgb(237, 91, 253);
+}
+.doneTitle::before,
+.doneTitle::after {
+  background-color: #8bc48a;
+}
+
+/* create task form */
+.projectmanager_crateProject_form {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.575);
+}
+.crateProject_form {
+  position: fixed;
+  width: 500px;
+  background-color: white;
+  padding: 0 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #818080;
+  margin: 40px 0 auto;
+}
+.crateProject_form_title {
+  color: var(--textColor);
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.crateProject_form_label {
+  font-size: 16px;
+  font-weight: 500;
+}
+.crateProject_form_input {
+  width: 100%;
+  height: 40px;
+  margin: 5px 0 16px;
+  border: 1px solid gray;
+  padding: 10px;
+  border-radius: 5px;
+}
+.crateProject_form_btn {
+  display: flex;
+  justify-content: space-between;
+}
+.crateProject_form_btnCreate {
+  margin-top: 20px;
+  width: 150px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--bgColor2);
+  color: white;
+}
+.crateProject_form_btnClose {
+  margin-top: 20px;
+  width: 140px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: white;
+  border: 1px solid var(--bgColor2);
+  color: var(--bgColor2);
+}
+
+.crateProject_form_selectDif {
+  display: flex;
+  margin: 5px 0 16px;
+}
+.item_project_level_easy,
+.item_project_level_normal,
+.item_project_level_hard {
+  text-align: center;
+  margin-right: 40px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0 10px;
+  /* width: 50px; */
+  height: 23px;
+  border-radius: 5px;
+  line-height: 23px;
+}
+.item_project_level_easy {
+  background-color: rgb(198, 236, 198);
+  color: green;
+}
+
+.item_project_level_normal {
+  background-color: rgb(247, 247, 191);
+  color: #d58d49;
+}
+
+.item_project_level_hard {
+  background-color: rgb(246, 215, 215);
+  color: red;
+}
+.error {
+  color: red;
+  margin-bottom: 10px;
+}

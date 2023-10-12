@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.3",
+    "@syncfusion/ej2-react-gantt": "^23.1.39",
     "@types/node": "20.4.5",
     "@types/react": "18.2.17",
     "@types/react-dom": "18.2.7",
