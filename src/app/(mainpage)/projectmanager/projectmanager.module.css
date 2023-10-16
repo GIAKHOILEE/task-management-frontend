@@ -187,11 +187,11 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000; /* Đảm bảo nó nằm trên tất cả các phần tử khác */
+  z-index: 1000;
 }
 
 .spinner {

@@ -1,8 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./layout.module.css";
 import CircleAvatarComponent from "@/component/circleAvatarComponent/CircleAvatarComponent";
-
+import Link from "next/link";
+import Loading from "@/component/loadingComponent/loading";
+import { Suspense } from "react";
+import { ProjectIDContext } from "@/context/ProjectIDContext";
 type UserDetail = {
   userId: number;
   firstname: string;
@@ -15,7 +18,7 @@ type UserDetail = {
 type UserInproject = {
   userProjectId: number;
   user: UserDetail;
-  // project: Project;
+  project: Project;
   role: string;
 };
 type User = {
@@ -24,12 +27,21 @@ type User = {
   firstname: string;
   lastname: string;
 };
+type Project = {
+  projectId: number;
+  projectName: string;
+  projectDescription: string;
+  startDate: Date;
+  endDate: Date;
+  status: string;
+};
 
-export default function layout({
-  params,
-}: {
+type LayoutProps = {
   params: { slugProject: string };
-}) {
+  children: React.ReactNode;
+};
+
+export default function layout({ params, children }: LayoutProps) {
   const [userInProject, setUserInProject] = useState<UserInproject[]>([]);
   const [userNotInProject, setUserNotInProject] = useState<User[]>([]);
   const [openBoxmAddPeople, setOpenBoxAddPeople] = useState(false);
@@ -37,6 +49,7 @@ export default function layout({
   const [selectedItem, setSelectedItem] = useState<string>("Tổng Quan");
   const [searchTerm, setSearchTerm] = useState("");
   const [IdProjectowner, setIdProjectOwner] = useState();
+  const [projectName, setProjectName] = useState("");
 
   const userObject = JSON.parse(localStorage.getItem("user") as string);
   const userId = userObject.userId;
@@ -46,7 +59,7 @@ export default function layout({
   };
   const projectID = params.slugProject;
 
-  // lấy user tồn tại trong project
+  // lấy (userProject)
   async function getProjectUsers() {
     try {
       const response = await fetch(
@@ -65,6 +78,7 @@ export default function layout({
       const data = await response.json();
       // console.log(data);
       setUserInProject(data);
+      setProjectName(data[0].project.projectName);
 
       const owner = data.find((user: any) => user.role === "owner");
       if (owner) {
@@ -153,36 +167,38 @@ export default function layout({
       </div>
       <div className={styles.layout_people}>
         <div className={styles.layout_grouproute}>
-          <div
+          <Link
+            href={`/projectmanager/${projectID}`}
             className={
               selectedItem === "Tổng Quan"
                 ? styles.layout_grouproute_item_choose
                 : styles.layout_grouproute_item
             }
-            onClick={() => handleItemClick("Tổng Quan")}
           >
-            Tổng Quan
-          </div>
-          <div
+            <div onClick={() => handleItemClick("Tổng Quan")}>Tổng Quan</div>
+          </Link>
+
+          <Link
+            href={`/projectmanager/${projectID}/roadmap`}
             className={
               selectedItem === "Lộ Trình"
                 ? styles.layout_grouproute_item_choose
                 : styles.layout_grouproute_item
             }
-            onClick={() => handleItemClick("Lộ Trình")}
           >
-            Lộ Trình
-          </div>
-          <div
+            <div onClick={() => handleItemClick("Lộ Trình")}>Lộ Trình</div>
+          </Link>
+
+          <Link
+            href={`/projectmanager/${projectID}/taskboard`}
             className={
               selectedItem === "Nhiệm Vụ"
                 ? styles.layout_grouproute_item_choose
                 : styles.layout_grouproute_item
             }
-            onClick={() => handleItemClick("Nhiệm Vụ")}
           >
-            Nhiệm Vụ
-          </div>
+            <div onClick={() => handleItemClick("Nhiệm Vụ")}>Nhiệm Vụ</div>
+          </Link>
         </div>
         <div className={styles.layout_avatar}>
           <div
@@ -203,7 +219,10 @@ export default function layout({
           ))}
         </div>
       </div>
-
+      <div className={styles.project_name}>{projectName}</div>
+      <ProjectIDContext.Provider value={projectID}>
+        <Suspense fallback={<Loading />}>{children} </Suspense>
+      </ProjectIDContext.Provider>
       {/* BOX add people  */}
       {openBoxmAddPeople && (
         <div

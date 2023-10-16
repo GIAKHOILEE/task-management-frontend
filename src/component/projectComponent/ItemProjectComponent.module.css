@@ -18,17 +18,17 @@
   padding: 5px 10px;
 }
 .item_project_level_easy {
-  background-color: rgb(198, 236, 198);
+  background-color: rgb(212, 241, 212);
   color: green;
 }
 
 .item_project_level_normal {
-  background-color: rgb(247, 247, 191);
+  background-color: rgb(249, 249, 209);
   color: #d58d49;
 }
 
 .item_project_level_hard {
-  background-color: rgb(246, 215, 215);
+  background-color: rgb(255, 233, 233);
   color: red;
 }
 .item_project_level_complete {
