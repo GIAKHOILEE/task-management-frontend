@@ -1,1 +1,49 @@
-@import url("https://cdn.syncfusion.com/ej2/material.css");
+.bar_chart {
+  width: 1300px;
+  overflow: auto;
+}
+.bar_y {
+  width: 100px;
+}
+/* .bar {
+  width: 1300px;
+  overflow: auto;
+} */
+.define_color {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.define_color_todo::before,
+.define_color_doing::before,
+.define_color_review::before,
+.define_color_done::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 50%;
+  display: block;
+  margin-right: 6px;
+}
+.define_color_todo::before {
+  background-color: #5030e5;
+}
+.define_color_doing::before {
+  background-color: #ffa500;
+}
+.define_color_review::before {
+  background-color: #f366c6;
+}
+.define_color_done::before {
+  background-color: #8bc48a;
+}
+.define_color_todo,
+.define_color_doing,
+.define_color_review,
+.define_color_done {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}

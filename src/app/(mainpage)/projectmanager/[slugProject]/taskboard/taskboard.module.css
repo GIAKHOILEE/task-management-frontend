@@ -59,7 +59,7 @@
 }
 .reviewTitle::before,
 .reviewTitle::after {
-  background-color: rgb(237, 91, 253);
+  background-color: #f366c6;
 }
 .doneTitle::before,
 .doneTitle::after {
@@ -81,7 +81,7 @@
   position: fixed;
   width: 500px;
   background-color: white;
-  padding: 0 50px;
+  padding: 50px;
   border-radius: 10px;
   box-shadow: 0 0 20px #818080;
   margin: 40px 0 auto;
