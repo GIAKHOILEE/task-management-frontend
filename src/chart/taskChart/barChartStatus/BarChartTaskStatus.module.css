@@ -1,0 +1,52 @@
+.chart {
+  width: 500px;
+  margin-top: 40px;
+  padding: 20px 0;
+  border: 1px solid var(--bgColor3);
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px rgb(211, 242, 254);
+}
+.chart_title {
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.define_color {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.define_color_todo::before,
+.define_color_doing::before,
+.define_color_review::before,
+.define_color_done::before {
+  content: "";
+  margin-right: 10px;
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+.define_color_todo::before {
+  background-color: #b3ff99;
+}
+.define_color_doing::before {
+  background-color: #ffdd99;
+}
+.define_color_review::before {
+  background-color: #ffb3ff;
+}
+.define_color_done::before {
+  background-color: #b3ccff;
+}
+.define_color_todo,
+.define_color_doing,
+.define_color_review,
+.define_color_done {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  width: 170px;
+}

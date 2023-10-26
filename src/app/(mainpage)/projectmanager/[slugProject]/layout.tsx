@@ -6,35 +6,39 @@ import Link from "next/link";
 import Loading from "@/component/loadingComponent/loading";
 import { Suspense } from "react";
 import { ProjectIDContext } from "@/context/ProjectIDContext";
-type UserDetail = {
-  userId: number;
-  firstname: string;
-  lastname: string;
-  email: string;
-  phone: number;
-  password: string;
-  avatar: string | null;
-};
-type UserInproject = {
-  userProjectId: number;
-  user: UserDetail;
-  project: Project;
-  role: string;
-};
-type User = {
-  userId: string;
-  email: string;
-  firstname: string;
-  lastname: string;
-};
-type Project = {
-  projectId: number;
-  projectName: string;
-  projectDescription: string;
-  startDate: Date;
-  endDate: Date;
-  status: string;
-};
+import { UserProjectInProjectContext } from "@/context/UserProjectInProjectContext";
+import { IdProjectOwner } from "@/context/IdProjectOwner";
+import { UserProjectType, UserType } from "@/typeDatabase/TypeDatabase";
+
+// type UserDetail = {
+//   userId: number;
+//   firstname: string;
+//   lastname: string;
+//   email: string;
+//   phone: number;
+//   password: string;
+//   avatar: string | null;
+// };
+// type UserInproject = {
+//   userProjectId: number;
+//   user: UserDetail;
+//   project: Project;
+//   role: string;
+// };
+// type User = {
+//   userId: string;
+//   email: string;
+//   firstname: string;
+//   lastname: string;
+// };
+// type Project = {
+//   projectId: number;
+//   projectName: string;
+//   projectDescription: string;
+//   startDate: Date;
+//   endDate: Date;
+//   status: string;
+// };
 
 type LayoutProps = {
   params: { slugProject: string };
@@ -42,8 +46,9 @@ type LayoutProps = {
 };
 
 export default function layout({ params, children }: LayoutProps) {
-  const [userInProject, setUserInProject] = useState<UserInproject[]>([]);
-  const [userNotInProject, setUserNotInProject] = useState<User[]>([]);
+  const [userInProject, setUserInProject] = useState<UserProjectType[]>([]);
+  // console.log(userInProject);
+  const [userNotInProject, setUserNotInProject] = useState<UserType[]>([]);
   const [openBoxmAddPeople, setOpenBoxAddPeople] = useState(false);
   const [openSelectViewPeople, setOpenSelectViewPeople] = useState(true);
   const [selectedItem, setSelectedItem] = useState<string>("Tổng Quan");
@@ -59,7 +64,7 @@ export default function layout({ params, children }: LayoutProps) {
   };
   const projectID = params.slugProject;
 
-  // lấy (userProject)
+  // lấy (userProject) trong project
   async function getProjectUsers() {
     try {
       const response = await fetch(
@@ -148,10 +153,13 @@ export default function layout({ params, children }: LayoutProps) {
           }),
         }
       );
-      if (response) {
+      if (response.ok) {
         alert("xóa thành công");
         getProjectUsers();
         getUserNotInProject();
+      }
+      if (!response.ok) {
+        alert("Không thể xóa!!! Người này còn đang trong công việc");
       }
     } catch (error) {
       console.log(error);
@@ -220,9 +228,14 @@ export default function layout({ params, children }: LayoutProps) {
         </div>
       </div>
       <div className={styles.project_name}>{projectName}</div>
-      <ProjectIDContext.Provider value={projectID}>
-        <Suspense fallback={<Loading />}>{children} </Suspense>
-      </ProjectIDContext.Provider>
+      <IdProjectOwner.Provider value={IdProjectowner}>
+        <UserProjectInProjectContext.Provider value={userInProject}>
+          <ProjectIDContext.Provider value={projectID}>
+            <Suspense fallback={<Loading />}>{children} </Suspense>
+          </ProjectIDContext.Provider>
+        </UserProjectInProjectContext.Provider>
+      </IdProjectOwner.Provider>
+
       {/* BOX add people  */}
       {openBoxmAddPeople && (
         <div

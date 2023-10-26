@@ -31,15 +31,15 @@ export default function roadmap() {
   const getStatusColor = (status: TaskType["status"]) => {
     switch (status) {
       case "todo":
-        return "#A8DF8E";
+        return { fillColor: "#c1e7b0", borderColor: "#70c43e" };
       case "doing":
-        return "#FEFFAC";
+        return { fillColor: "#f6f7c8", borderColor: "#e7e345" };
       case "review":
-        return "#FFB6D9";
+        return { fillColor: "#fbcfe4", borderColor: "#eb5399" };
       case "done":
-        return "#97FFF4";
+        return { fillColor: "#b2f7ef", borderColor: "#45e8d2" };
       default:
-        return "#DDDDDD";
+        return { fillColor: "#DDDDDD", borderColor: "#BBBBBB" };
     }
   };
 
@@ -47,7 +47,7 @@ export default function roadmap() {
     moment().month(i).startOf("month").dayOfYear()
   );
 
-  // api get all task
+  // api get all task theo id project
   const getAllTask = async () => {
     try {
       const response = await fetch(
@@ -75,8 +75,8 @@ export default function roadmap() {
   return (
     <>
       <div className={styles.define_color}>
-        <div className={styles.define_color_todo}>Chưa làm</div>
-        <div className={styles.define_color_doing}>Đang làm</div>
+        <div className={styles.define_color_todo}>Chưa thực hiện</div>
+        <div className={styles.define_color_doing}>Đang thực hiện</div>
         <div className={styles.define_color_review}>Đánh giá</div>
         <div className={styles.define_color_done}>Hoàn thành</div>
       </div>
@@ -87,8 +87,11 @@ export default function roadmap() {
             type="number"
             domain={[0, 365]}
             ticks={ticksForMonths}
+            // tickFormatter={(tickValue) =>
+            //   moment().dayOfYear(tickValue).format("MMM")
+            // }
             tickFormatter={(tickValue) =>
-              moment().dayOfYear(tickValue).format("MMM")
+              "Tháng " + moment().dayOfYear(tickValue).format("M")
             }
             orientation="top"
           />
@@ -108,24 +111,32 @@ export default function roadmap() {
           />
           <Bar
             dataKey="endDayOfYear"
-            fill="#82ca9d"
             shape={({ x, y, width, height, payload }) => {
-              const oneMonth = width / 12;
+              const oneMonth = width / 12 - 6;
               const dayWidth = width / 365;
               const barStartX =
                 x + oneMonth + payload.startDayOfYear * dayWidth;
               const barWidth =
                 (payload.endDayOfYear - payload.startDayOfYear + 1) * dayWidth;
-              const barColor = getStatusColor(payload.status); // Get color based on status
+              const { fillColor, borderColor } = getStatusColor(payload.status);
               console.log(width);
               return (
-                <Rectangle
-                  x={barStartX}
-                  y={y}
-                  width={barWidth}
-                  height={height}
-                  fill={barColor}
-                />
+                <g>
+                  <Rectangle
+                    x={barStartX - 2}
+                    y={y - 2}
+                    width={barWidth + 4}
+                    height={height + 4}
+                    fill={borderColor}
+                  />
+                  <Rectangle
+                    x={barStartX}
+                    y={y}
+                    width={barWidth}
+                    height={height}
+                    fill={fillColor}
+                  />
+                </g>
               );
             }}
           />

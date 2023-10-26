@@ -1,0 +1,5 @@
+.line_1_chart,
+.line_2_chart {
+  display: flex;
+  justify-content: space-between;
+}

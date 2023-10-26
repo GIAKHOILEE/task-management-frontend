@@ -1,18 +1,21 @@
-.bar_chart {
-  width: 1300px;
-  overflow: auto;
+.chart {
+  margin-top: 40px;
+  padding: 20px 0;
+  border: 1px solid var(--bgColor3);
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px rgb(211, 242, 254);
 }
-.bar_y {
-  width: 100px;
+.chart_title {
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 25px;
 }
-/* .bar {
-  width: 1300px;
-  overflow: auto;
-} */
 .define_color {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
   justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
 }
 .define_color_todo::before,
@@ -20,27 +23,22 @@
 .define_color_review::before,
 .define_color_done::before {
   content: "";
+  margin-right: 10px;
+  display: block;
   width: 20px;
   height: 20px;
-  border-radius: 50%;
-  display: block;
-  margin-right: 6px;
 }
 .define_color_todo::before {
-  border: 1px solid #70c43e;
-  background-color: #c1e7b0;
+  background-color: #b3ff99;
 }
 .define_color_doing::before {
-  border: 1px solid #e7e345;
-  background-color: #f6f7c8;
+  background-color: #ffdd99;
 }
 .define_color_review::before {
-  border: 1px solid #eb5399;
-  background-color: #fbcfe4;
+  background-color: #ffb3ff;
 }
 .define_color_done::before {
-  border: 1px solid #45e8d2;
-  background-color: #b2f7ef;
+  background-color: #b3ccff;
 }
 .define_color_todo,
 .define_color_doing,
@@ -48,5 +46,5 @@
 .define_color_done {
   display: flex;
   align-items: center;
-  margin-right: 20px;
+  margin-bottom: 5px;
 }
