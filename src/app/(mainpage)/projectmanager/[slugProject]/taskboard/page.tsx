@@ -15,8 +15,8 @@ type TaskType = {
   taskDescription: string;
   level: number;
   status: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
 };
 
 type ColumnType = {
@@ -85,13 +85,13 @@ export default function taskboard() {
   // css cho title
   const getTitleColor = (title: any) => {
     switch (title) {
-      case "todo":
+      case "Chưa thực hiện":
         return styles.todoTitle;
-      case "doing":
+      case "Đang thực hiện":
         return styles.doingTitle;
-      case "review":
+      case "Đánh giá":
         return styles.reviewTitle;
-      case "done":
+      case "Hoàn thành":
         return styles.doneTitle;
       default:
         return "";
@@ -111,8 +111,8 @@ export default function taskboard() {
         taskDescription: task.taskDescription,
         level: task.level,
         status: task.status,
-        startDate: new Date(task.startDate),
-        endDate: new Date(task.endDate),
+        startDate: task.startDate.split("T")[0],
+        endDate: task.endDate.split("T")[0],
       };
     });
 
@@ -121,28 +121,28 @@ export default function taskboard() {
       columns: {
         "column-1": {
           id: "column-1",
-          title: "todo",
+          title: "Chưa thực hiện",
           taskIds: apiData
             .filter((task) => task.status === "todo")
             .map((task) => `task-${task.taskId}`),
         },
         "column-2": {
           id: "column-2",
-          title: "doing",
+          title: "Đang thực hiện",
           taskIds: apiData
             .filter((task) => task.status === "doing")
             .map((task) => `task-${task.taskId}`),
         },
         "column-3": {
           id: "column-3",
-          title: "review",
+          title: "Đánh giá",
           taskIds: apiData
             .filter((task) => task.status === "review")
             .map((task) => `task-${task.taskId}`),
         },
         "column-4": {
           id: "column-4",
-          title: "done",
+          title: "Hoàn thành",
           taskIds: apiData
             .filter((task) => task.status === "done")
             .map((task) => `task-${task.taskId}`),
@@ -152,7 +152,7 @@ export default function taskboard() {
     };
   }
 
-  //API lấy all task
+  //API lấy all task theo id project
   const getAllTask = async () => {
     try {
       const response = await fetch(
@@ -229,6 +229,20 @@ export default function taskboard() {
       console.error("Error updating the task:", error);
     }
   };
+  const convertTitleToStatus = (title: string) => {
+    switch (title) {
+      case "Chưa thực hiện":
+        return "todo";
+      case "Đang thực hiện":
+        return "doing";
+      case "Đánh giá":
+        return "review";
+      case "Hoàn thành":
+        return "done";
+      default:
+        throw new Error(`Unknown title: ${title}`);
+    }
+  };
 
   //xử lý kéo thả
   const onDragEnd = (result: any) => {
@@ -289,10 +303,11 @@ export default function taskboard() {
       taskIds: endTaskIds,
     };
 
+    // update khi kéo vào db
     const taskDragged = data.tasks[draggableId];
     const updatedData = {
       taskId: taskDragged.idTask,
-      status: newEndColumn.title,
+      status: convertTitleToStatus(newEndColumn.title),
     };
     updateTask(updatedData);
 
@@ -352,6 +367,8 @@ export default function taskboard() {
                             provided={provided}
                             task={task}
                             // statusProp={status}
+                            fetchData={getAllTask}
+
                           />
                         )}
                       </Draggable>

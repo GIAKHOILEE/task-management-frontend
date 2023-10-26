@@ -81,7 +81,7 @@ export default function ItemProjectComponent({
       );
       if (response.ok) {
         // setAlertType("success");
-        // setAlertMessage("Xóa thành công");
+        setAlertMessage("Xóa thành công");
         // setShowAlert(true);
 
         setOpenMenu(false);
@@ -242,6 +242,7 @@ export default function ItemProjectComponent({
                 type="radio"
                 name="difficulty"
                 value={1}
+                checked={Level === 1}
                 onChange={(e) => setLevel(Number(e.target.value))}
               />
               <label
@@ -255,6 +256,7 @@ export default function ItemProjectComponent({
                 type="radio"
                 name="difficulty"
                 value={2}
+                checked={Level === 2}
                 onChange={(e) => setLevel(Number(e.target.value))}
               />
               <label
@@ -268,6 +270,7 @@ export default function ItemProjectComponent({
                 type="radio"
                 name="difficulty"
                 value={3}
+                checked={Level === 3}
                 onChange={(e) => setLevel(Number(e.target.value))}
               />
               <label

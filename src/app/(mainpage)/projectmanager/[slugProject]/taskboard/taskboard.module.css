@@ -51,7 +51,7 @@
 }
 .todoTitle::before,
 .todoTitle::after {
-  background-color: #5030e5;
+  background-color: #8bc48a;
 }
 .doingTitle::before,
 .doingTitle::after {
@@ -63,7 +63,7 @@
 }
 .doneTitle::before,
 .doneTitle::after {
-  background-color: #8bc48a;
+  background-color: #5030e5;
 }
 
 /* create task form */
