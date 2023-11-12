@@ -4,6 +4,7 @@ import CircleAvatarComponent from "../circleAvatarComponent/CircleAvatarComponen
 import { ProjectIDContext } from "@/context/ProjectIDContext";
 import { UserProjectInProjectContext } from "@/context/UserProjectInProjectContext";
 import { IdProjectOwner } from "@/context/IdProjectOwner";
+import { AssigneeType } from "@/typeDatabase/TypeDatabase";
 type TaskType = {
   id: string;
   idTask: number;
@@ -16,58 +17,10 @@ type TaskType = {
   startDate: string;
   endDate: string;
 };
-type assignment = {
-  assignmentId: number;
-  task: {
-    taskId: number;
-    project: {
-      projectId: number;
-      owner: User;
-      projectName: string;
-      projectDescription: string;
-      level: number;
-      status: string;
-      startDate: string;
-      endDate: string;
-    };
-    taskName: string;
-    taskDescription: string;
-    level: number;
-    status: string;
-    index: null | number;
-    startDate: string;
-    endDate: string;
-  };
-  userProject: {
-    userProjectId: number;
-    user: User;
-    project: {
-      projectId: number;
-      owner: User;
-      projectName: string;
-      projectDescription: string;
-      level: number;
-      status: string;
-      startDate: string;
-      endDate: string;
-    };
-    role: string;
-  };
-};
-type User = {
-  userId: number;
-  firstname: string;
-  lastname: string;
-  email: string;
-  phone: null | number;
-  password: string;
-  avatar: string;
-};
 
 type ItemTaskComponentProps = {
   provided: any;
   task: TaskType;
-  // statusProp: string;
   fetchData: () => Promise<void>;
 };
 
@@ -75,21 +28,21 @@ function ItemTaskComponent({
   provided,
   task,
   fetchData,
-}: // statusProp,
-ItemTaskComponentProps) {
+}: ItemTaskComponentProps) {
   const userProjectInProject = useContext(UserProjectInProjectContext);
   const IdProjectowner = useContext(IdProjectOwner);
   const projectID = useContext(ProjectIDContext);
   const userId = JSON.parse(localStorage.getItem("user") as string).userId;
 
-  const [assign, setAssign] = useState<assignment[]>([]);
+  const [assign, setAssign] = useState<AssigneeType[]>([]);
   const [Level, setLevel] = useState<number>(task.level);
   const [taskName, setTaskName] = useState(task.taskName);
   const [taskDescription, setTaskDescription] = useState(task.taskDescription);
   const [startDate, setStartDate] = useState(task.startDate);
-  const [enDate, setEndDate] = useState(task.endDate);
+  const [endDate, setEndDate] = useState(task.endDate);
   const [taskStatus, setTaskStatus] = useState(task.status);
 
+  const [error, setError] = useState("");
   const [checkDay, setCheckDay] = useState("");
   const [openMenuItem, setOpenMenuItem] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
@@ -112,13 +65,22 @@ ItemTaskComponentProps) {
   }
   //api cập nhật
   const updateTask = async () => {
+    if (
+      taskName === "" ||
+      startDate === "" ||
+      endDate === "" ||
+      taskDescription === ""
+    ) {
+      setError("Không được để trống các trường");
+      return;
+    }
     const updatedData = {
       taskId: task.idTask,
       level: Level,
       taskName: taskName,
       taskDescription: taskDescription,
       startDate: startDate,
-      endDate: enDate,
+      endDate: endDate,
       status: taskStatus,
     };
     try {
@@ -278,11 +240,26 @@ ItemTaskComponentProps) {
             <div className={styles.item_menu}>
               <div
                 className={styles.item_menu_update}
-                onClick={() => setOpenUpdate(true)}
+                onClick={() => {
+                  if (IdProjectowner == userId) {
+                    setOpenUpdate(true);
+                  } else {
+                    alert("Bạn không phải là quản lý của dự án");
+                  }
+                }}
               >
                 Chỉnh sửa công việc
               </div>
-              <div className={styles.item_menu_delete} onClick={deleteTask}>
+              <div
+                className={styles.item_menu_delete}
+                onClick={() => {
+                  if (IdProjectowner == userId) {
+                    deleteTask();
+                  } else {
+                    alert("Bạn không phải là quản lý của dự án");
+                  }
+                }}
+              >
                 Xóa công việc
               </div>
             </div>
@@ -411,7 +388,7 @@ ItemTaskComponentProps) {
             <input
               className={styles.crateProject_form_input}
               type="date"
-              value={enDate}
+              value={endDate}
               onChange={handleEndDateChange}
             />
             {checkDay && <div className={styles.error}>{checkDay}</div>}
@@ -424,6 +401,8 @@ ItemTaskComponentProps) {
               value={taskDescription}
               onChange={(e) => setTaskDescription(e.target.value)}
             />
+            {error && <div className={styles.error}>{error}</div>}
+
             <hr />
             <div className={styles.crateProject_form_btn}>
               <button

@@ -1,0 +1,29 @@
+.chartContainer {
+  display: flex;
+  align-items: center;
+}
+.define_color_text {
+  font-weight: 500;
+  margin: 10px 0;
+}
+.define_color_percent_plan::before,
+.define_color_percent_actual::before {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 14px;
+  margin-right: 10px;
+}
+.define_color_percent_plan::before {
+  background-color: #99ff99;
+}
+.define_color_percent_actual::before {
+  background-color: #ffbe85;
+}
+.define_color_percent_plan,
+.define_color_percent_actual {
+  font-weight: 400;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}

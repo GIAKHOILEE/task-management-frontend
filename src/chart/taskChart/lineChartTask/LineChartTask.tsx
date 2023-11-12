@@ -77,7 +77,7 @@ export default function LineChartTask() {
 
     setChartData(dataArr);
   }, [taskData]);
-  console.log(taskData);
+  // console.log(taskData);
   return (
     <div className={styles.chart}>
       <div className={styles.chart_title}>

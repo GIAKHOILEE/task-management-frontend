@@ -55,6 +55,7 @@ export default function ItemProjectComponent({
   const [endDate, setEndDate] = useState(end_date);
   const [checkDay, setCheckDay] = useState("");
 
+  const [error, setError] = useState("");
   //alert
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -93,6 +94,15 @@ export default function ItemProjectComponent({
   }
   //update peoejct
   async function updateProject() {
+    if (
+      projectName == "" ||
+      projectDescription == "" ||
+      endDate == "" ||
+      startDate == ""
+    ) {
+      setError("Không được để trống các trường");
+      return;
+    }
     try {
       const response = await fetch(
         "http://localhost:8080/project/updateProject",
@@ -304,6 +314,8 @@ export default function ItemProjectComponent({
               value={projectDescription}
               onChange={(e) => setProjectDescription(e.target.value)}
             />
+            {error && <div className={styles.error}>{error}</div>}
+
             <hr />
             <div className={styles.crateProject_form_btn}>
               <button

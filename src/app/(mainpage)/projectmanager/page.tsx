@@ -44,11 +44,11 @@ export default function projectmanager() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
+  const [error, setError] = useState("");
   const [isUserProject, setIsUserProject] = useState(false);
   const [checkDay, setCheckDay] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const [projects, setProjects] = useState<Item[]>([]);
+  // const [projects, setProjects] = useState<Item[]>([]);
   const [initialData, setInitialData] = useState<InitialData>({
     items: {},
     columns: {
@@ -76,11 +76,8 @@ export default function projectmanager() {
       const response = await fetch(
         "http://localhost:8080/project/getAllProject"
       );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
       const data = await response.json();
-
+      // console.log(data);
       const newItems: { [id: string]: Item } = {};
       const newItemIds: string[] = [];
       data.forEach((project: any, index: number) => {
@@ -119,7 +116,7 @@ export default function projectmanager() {
         },
       }));
 
-      setProjects(data);
+      // setProjects(data);
     } catch (error) {
       console.error(error);
     }
@@ -134,6 +131,15 @@ export default function projectmanager() {
     const userObject = JSON.parse(userString || "{}");
     const userId = userObject.userId;
 
+    if (
+      projectName == "" ||
+      projectDescription == "" ||
+      endDate == "" ||
+      startDate == ""
+    ) {
+      setError("Không được để trống các trường");
+      return;
+    }
     const projectData = {
       projectName: projectName,
       projectDescription: projectDescription,
@@ -251,7 +257,7 @@ export default function projectmanager() {
 
       const data = await response.json();
       // console.log(data);
-      const isUserInProject = data.some((user: any) => user.userId === userId);
+      const isUserInProject = data.some((user: any) => user.userId == userId);
       // alert(userId);
       if (isUserInProject) {
         setIsUserProject(true);
@@ -539,6 +545,8 @@ export default function projectmanager() {
               value={projectDescription}
               onChange={(e) => setProjectDescription(e.target.value)}
             />
+            {error && <div className={styles.error}>{error}</div>}
+
             <hr />
             <div className={styles.crateProject_form_btn}>
               <button

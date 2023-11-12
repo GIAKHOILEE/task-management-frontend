@@ -10,9 +10,9 @@ export default function registerdone() {
         <div className={styles.form_icon}>
           <Image src="/Ok.png" width={50} height={50} alt="Picture" />
         </div>
-        <Link href="/login">
+        {/* <Link href="/login">
           <button className={styles.form_button}>Đăng Nhập</button>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

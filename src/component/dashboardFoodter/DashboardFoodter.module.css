@@ -1,0 +1,36 @@
+.dasboard_footer {
+  display: flex;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  padding: 10px 0;
+  font-weight: 600;
+  align-items: center;
+}
+.dasboard_footer_assign_avatar {
+  display: flex;
+  width: 35%;
+}
+.dasboard_footer_totaltask {
+  text-align: center;
+  margin-right: 30%;
+}
+.dasboard_footer_status {
+  text-align: center;
+}
+.dasboard_footer_status_label {
+  font-weight: 400;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+.verylow {
+  background-color: #fad1d1;
+  color: #ff4d4d;
+}
+.low {
+  background-color: #fae9da;
+  color: #ff9538;
+}
+.onschedule {
+  background-color: #d2fad2;
+  color: #1adb1a;
+}

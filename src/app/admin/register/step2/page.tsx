@@ -127,22 +127,8 @@ export default function login() {
   // console.log(code)
   return (
     <div className={styles.register}>
-      <div className={styles.loginPage_left}>
-        <Image
-          src="/bg_login.png"
-          layout="fill"
-          objectFit="cover"
-          alt="Picture of the author"
-        />
-      </div>
       <div className={styles.loginPage_right}>
         <div className={styles.loginPage_right_top}>
-          <div className={styles.loginPage_right_top_back}>
-            <Link href="/register/step1">
-              <LeftOutlined />
-              <span className={styles.textGray}>Quay lại</span>
-            </Link>
-          </div>
           <div className={styles.loginPage_right_top_step}>
             <div className={styles.textGray}>Bước 2 / 2</div>
             <div>Đăng ký</div>
@@ -150,14 +136,14 @@ export default function login() {
         </div>
         <div className={styles.loginPage_right_title}>
           <div className={styles.loginPage_right_title_Lg}>
-            Kiểm Tra Email Của Bạn
+            Kiểm Tra Email Đã Đăng Ký
           </div>
           <div className={styles.loginPage_right_title_sm}>
             Chúng tôi đã gửi mã xác nhận gồm 6 chữ số tới{" "}
             <span className={styles.loginPage_right_title_sm_mail}>
               {email}
             </span>
-            . Đảm bảo bạn nhập đúng mã.
+            . Đảm bảo hãy nhập đúng mã.
           </div>
         </div>
         <div className={styles.loginPage_right_content}>

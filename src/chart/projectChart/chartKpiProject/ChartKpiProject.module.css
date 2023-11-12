@@ -1,0 +1,59 @@
+.kpi_container {
+  display: flex;
+}
+.kpi_container_label {
+  width: 100px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #ccc;
+  margin-left: 3px;
+}
+.kpi_container_label_verylow {
+  width: 100px;
+  height: 10px;
+  border-radius: 5px;
+  margin-left: 3px;
+  background-color: #ff9999;
+}
+
+.kpi_container_label_low {
+  width: 100px;
+  height: 10px;
+  border-radius: 5px;
+  margin-left: 3px;
+  background-color: #ffbe85;
+}
+.kpi_container_label_onschedule {
+  width: 100px;
+  height: 10px;
+  border-radius: 5px;
+  margin-left: 3px;
+  background-color: #99ff99;
+}
+.kpi_chart {
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.kpi_chart_title {
+  text-align: right;
+  width: 100%;
+  margin-right: 10px;
+}
+.kpi_chart_parameter {
+  position: absolute;
+  top: -15px;
+  right: 0;
+  font-style: italic;
+}
+.verylow {
+  color: #ff4d4d;
+}
+.low {
+  color: #ff9538;
+}
+.onschedule {
+  color: #4dff4d;
+}

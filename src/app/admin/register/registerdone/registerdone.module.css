@@ -1,12 +1,14 @@
 .registerdoneContainer {
-  background-color: rgba(0, 0, 0, 0.7); /* Màu xám bên ngoài */
   display: flex;
   justify-content: center;
   align-items: center;
+  width: calc(100% - 260px);
   height: 100%;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.1);
+  background-image: url("/bg.jpg");
 }
 .registerdoneContainer_form {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.687);
   width: 600px;
   height: 300px;
   display: flex;
