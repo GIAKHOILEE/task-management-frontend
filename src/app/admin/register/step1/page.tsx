@@ -86,27 +86,14 @@ export default function login() {
         password: password,
       };
       localStorage.setItem("userData", JSON.stringify(userData));
-      router.push("/register/step2");
+      router.push("/admin/register/step2");
     }
   };
+
   return (
     <div className={styles.register}>
-      <div className={styles.loginPage_left}>
-        <Image
-          src="/bg_login.png"
-          layout="fill"
-          objectFit="cover"
-          alt="Picture of the author"
-        />
-      </div>
       <div className={styles.loginPage_right}>
         <div className={styles.loginPage_right_top}>
-          <div className={styles.loginPage_right_top_back}>
-            <Link href="/login">
-              <LeftOutlined />
-              <span className={styles.textGray}>Quay lại</span>
-            </Link>
-          </div>
           <div className={styles.loginPage_right_top_step}>
             <div className={styles.textGray}>Bước 1 / 2</div>
             <div>Đăng ký</div>
@@ -127,7 +114,7 @@ export default function login() {
               <input
                 className={styles.inputName}
                 type="text"
-                placeholder="Họ của bạn"
+                placeholder="Họ của nhân viên"
                 value={firstname}
                 onChange={(e) => setFirstname(e.target.value)}
               />
@@ -137,7 +124,7 @@ export default function login() {
               <input
                 className={styles.inputName}
                 type="text"
-                placeholder="Tên của bạn"
+                placeholder="Tên của nhân viên"
                 value={lastname}
                 onChange={(e) => setLastname(e.target.value)}
               />
@@ -149,7 +136,7 @@ export default function login() {
             <input
               className={styles.inputfill}
               type="text"
-              placeholder="email của bạn"
+              placeholder="email của nhân viên"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -172,7 +159,7 @@ export default function login() {
             <input
               className={styles.inputfill}
               type="password"
-              placeholder="Mật khẩu của bạn"
+              placeholder="Mật khẩu của nhân viên"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -186,7 +173,7 @@ export default function login() {
             <input
               className={styles.inputfill}
               type="password"
-              placeholder="Xác nhận mật khẩu của bạn"
+              placeholder="Xác nhận mật khẩu"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -199,10 +186,10 @@ export default function login() {
           <button className={styles.btnContiue} onClick={handleContinue}>
             Tiếp Tục
           </button>
-          <span className={styles.txtHaveAcc}>Đã có tài khoản</span>
+          {/* <span className={styles.txtHaveAcc}>Đã có tài khoản</span>
           <Link className={styles.linkLogin} href="/login">
             Đăng Nhập
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

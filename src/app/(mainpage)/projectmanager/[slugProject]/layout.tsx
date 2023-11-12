@@ -10,36 +10,6 @@ import { UserProjectInProjectContext } from "@/context/UserProjectInProjectConte
 import { IdProjectOwner } from "@/context/IdProjectOwner";
 import { UserProjectType, UserType } from "@/typeDatabase/TypeDatabase";
 
-// type UserDetail = {
-//   userId: number;
-//   firstname: string;
-//   lastname: string;
-//   email: string;
-//   phone: number;
-//   password: string;
-//   avatar: string | null;
-// };
-// type UserInproject = {
-//   userProjectId: number;
-//   user: UserDetail;
-//   project: Project;
-//   role: string;
-// };
-// type User = {
-//   userId: string;
-//   email: string;
-//   firstname: string;
-//   lastname: string;
-// };
-// type Project = {
-//   projectId: number;
-//   projectName: string;
-//   projectDescription: string;
-//   startDate: Date;
-//   endDate: Date;
-//   status: string;
-// };
-
 type LayoutProps = {
   params: { slugProject: string };
   children: React.ReactNode;

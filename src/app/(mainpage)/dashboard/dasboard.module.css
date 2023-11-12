@@ -1,0 +1,97 @@
+.dasboard {
+  padding: 23px 50px;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+.dasboard_title {
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--textColor);
+  margin: 22px 0 32px;
+}
+.dasboard_label {
+  border: 1px solid var(--bgColor2);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+.dasboard_labelitem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dasboard_labelitem_left {
+}
+.dasboard_labelitem_left_name {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.dasboard_labelitem_left_todo,
+.dasboard_labelitem_left_doing,
+.dasboard_labelitem_left_done {
+  display: flex;
+  align-items: center;
+  color: #4f4d4d;
+  margin-bottom: 10px;
+}
+.dasboard_labelitem_left_todo::before,
+.dasboard_labelitem_left_doing::before,
+.dasboard_labelitem_left_done::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.dasboard_labelitem_left_todo::before {
+  background-color: #5030e5;
+}
+.dasboard_labelitem_left_doing::before {
+  background-color: #ffa500;
+}
+.dasboard_labelitem_left_done::before {
+  background-color: #8bc48a;
+}
+.dasboard_labelitem_left_owner {
+  display: flex;
+  align-items: center;
+  color: #4f4d4d;
+}
+.dasboard_labelitem_left_owner_avatar {
+  margin: 0 10px;
+}
+.dasboard_labelitem_left_date {
+  display: flex;
+  justify-content: space-between;
+}
+.labelitem_left_date_datetime {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px 0 10px;
+}
+.labelitem_left_date_start {
+  color: #4ac9fb;
+  background-color: var(--bgColor);
+  font-weight: 400;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  align-items: center;
+  margin-top: 5px;
+}
+.labelitem_left_date_end {
+  font-weight: 400;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  align-items: center;
+  color: rgb(255, 64, 131);
+  background-color: rgb(255, 222, 237);
+  margin-top: 5px;
+}

@@ -31,7 +31,7 @@ export default function MenuConponent() {
               src="/iconDashboard.png"
               alt="iconDashboard"
             />
-            Dashboard
+            Bảng Điều Khiển
           </div>
         </Link>
         <Link href="/projectmanager">
@@ -41,7 +41,7 @@ export default function MenuConponent() {
               src="/iconProject.png"
               alt="iconProject"
             />
-            Project Manager
+            Quản Lý Dự Án
           </div>
         </Link>
         <div className={styles.menu_content_item} onClick={handleMenuMess}>
@@ -50,7 +50,7 @@ export default function MenuConponent() {
             src="/iconMessage.png"
             alt="iconProject"
           />
-          Messages
+          Tin Nhắn
           <img
             className={styles.menu_content_icon_arrow}
             src={icon}
@@ -66,7 +66,7 @@ export default function MenuConponent() {
                   src="/iconTeamMess.png"
                   alt="iconTeamMess"
                 />
-                Teams Messages
+                Tin Nhắn Nhóm
               </div>
             </Link>
             <Link href="personalmessage">
@@ -76,7 +76,7 @@ export default function MenuConponent() {
                   src="/iconPersonalMess.png"
                   alt="iconPersonalMess"
                 />
-                Personal Messages
+                Tin Nhắn
               </div>
             </Link>
           </div>
@@ -88,7 +88,7 @@ export default function MenuConponent() {
               src="/iconCalendar.png"
               alt="iconCalendar"
             />
-            Calendar
+            Lịch Họp
           </div>
         </Link>
         <div className={styles.menu_content_item}>
@@ -97,7 +97,7 @@ export default function MenuConponent() {
             src="/iconSetting.png"
             alt="iconSetting"
           />
-          Setting
+          Cài Đặt
           <img
             className={styles.menu_content_icon_arrow}
             src="/iconArrowback.png"

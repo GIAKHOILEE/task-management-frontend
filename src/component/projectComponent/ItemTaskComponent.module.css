@@ -300,3 +300,7 @@
   color: var(--textColor);
   font-weight: 500;
 }
+.error {
+  color: red;
+  margin-bottom: 10px;
+}

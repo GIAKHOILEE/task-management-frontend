@@ -4,6 +4,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import React, { useContext, useEffect, useState } from "react";
 import ItemTaskComponent from "@/component/projectComponent/ItemTaskComponent";
 import { ProjectIDContext } from "@/context/ProjectIDContext";
+import { UserProjectInProjectContext } from "@/context/UserProjectInProjectContext";
 import { headers } from "next/dist/client/components/headers";
 
 type TaskType = {
@@ -59,17 +60,36 @@ const initialData: InitialDataType = {
 };
 
 export default function taskboard() {
+  const userProjectInProject = useContext(UserProjectInProjectContext);
+  let userId = JSON.parse(localStorage.getItem("user") as string).userId;
+  // console.log(userProjectInProject);
+  const [ownerProject, setOwnerProject] = useState<number>();
+  const [ownerUserProject, setOwnerUserProject] = useState<number>();
+
+  useEffect(() => {
+    if (userProjectInProject && Array.isArray(userProjectInProject)) {
+      userProjectInProject.forEach((userProject) => {
+        if (userProject.role === "owner") {
+          setOwnerProject(userProject.user.userId);
+          setOwnerUserProject(userProject.userProjectId);
+        }
+      });
+    }
+  });
+
   const projectID = useContext(ProjectIDContext);
   const [data, setData] = useState<InitialDataType>(initialData);
   // const [data, setData] = useState<InitialDataType | null>(null);
   const [openCreateForm, setOpenCreateForm] = useState(false);
-  const [taskName, setTasktName] = useState("");
+  const [taskName, setTaskName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [level, setLevel] = useState<number>();
   const [checkDay, setCheckDay] = useState("");
   const [refreshCount, setRefreshCount] = useState(1);
+  const [error, setError] = useState("");
+
   // kiểm tra end-day
   function handleEndDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     const selectedEndDate = new Date(e.target.value);
@@ -169,8 +189,38 @@ export default function taskboard() {
     getAllTask();
   }, [refreshCount]);
 
+  // add assign to task
+  const addAssignToTask = async (TaskId: number, UserProject: number) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/projects/${projectID}/tasks/assign-task`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            taskId: TaskId,
+            userProjectId: UserProject,
+          }),
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //API tạo task
   const createTask = async (taskData: any) => {
+    if (
+      taskName === "" ||
+      startDate === "" ||
+      endDate === "" ||
+      taskDescription === ""
+    ) {
+      setError("Không được để trống các trường");
+      return;
+    }
     try {
       const response = await fetch(
         `http://localhost:8080/projects/${projectID}/tasks/create`,
@@ -183,8 +233,13 @@ export default function taskboard() {
           body: JSON.stringify(taskData), //
         }
       );
+      const data = await response.json();
+      console.log(data);
       if (response.ok) {
         alert("tạo task thành công");
+        if (ownerUserProject !== undefined) {
+          addAssignToTask(data.taskId, ownerUserProject);
+        }
         setOpenCreateForm(false);
         getAllTask();
       }
@@ -223,7 +278,7 @@ export default function taskboard() {
       }
 
       const result = await response.json();
-      console.log(result);
+      // console.log(result);
       setRefreshCount((prevCount) => prevCount + 1);
     } catch (error) {
       console.error("Error updating the task:", error);
@@ -326,7 +381,15 @@ export default function taskboard() {
     <>
       <button
         className={styles.btn_create_task}
-        onClick={() => setOpenCreateForm(true)}
+        onClick={() => {
+          // setOpenCreateForm(true);
+          if (userId == ownerProject) {
+            setOpenCreateForm(true);
+          } else {
+            alert("Bạn không có quyền mở biểu mẫu tạo công việc");
+            // console.log(userId, ownerProject);
+          }
+        }}
       >
         <img
           src="/iconPlus.png"
@@ -368,7 +431,6 @@ export default function taskboard() {
                             task={task}
                             // statusProp={status}
                             fetchData={getAllTask}
-
                           />
                         )}
                       </Draggable>
@@ -392,7 +454,7 @@ export default function taskboard() {
               className={styles.crateProject_form_input}
               type="text"
               placeholder="Tên công việc của bạn"
-              onChange={(e) => setTasktName(e.target.value)}
+              onChange={(e) => setTaskName(e.target.value)}
             />
             <div className={styles.crateProject_form_label}>Độ khó</div>
             <div className={styles.crateProject_form_selectDif}>
@@ -456,6 +518,7 @@ export default function taskboard() {
               value={taskDescription}
               onChange={(e) => setTaskDescription(e.target.value)}
             />
+            {error && <div className={styles.error}>{error}</div>}
             <hr />
             <div className={styles.crateProject_form_btn}>
               <button
