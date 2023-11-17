@@ -48,7 +48,7 @@ export default function projectmanager() {
   const [isUserProject, setIsUserProject] = useState(false);
   const [checkDay, setCheckDay] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  // const [projects, setProjects] = useState<Item[]>([]);
+  const [projects, setProjects] = useState<Item[]>([]);
   const [initialData, setInitialData] = useState<InitialData>({
     items: {},
     columns: {
@@ -76,6 +76,9 @@ export default function projectmanager() {
       const response = await fetch(
         "http://localhost:8080/project/getAllProject"
       );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
       const data = await response.json();
       // console.log(data);
       const newItems: { [id: string]: Item } = {};
@@ -116,7 +119,7 @@ export default function projectmanager() {
         },
       }));
 
-      // setProjects(data);
+      setProjects(data);
     } catch (error) {
       console.error(error);
     }
@@ -257,7 +260,7 @@ export default function projectmanager() {
 
       const data = await response.json();
       // console.log(data);
-      const isUserInProject = data.some((user: any) => user.userId == userId);
+      const isUserInProject = data.some((user: any) => user.userId === userId);
       // alert(userId);
       if (isUserInProject) {
         setIsUserProject(true);
