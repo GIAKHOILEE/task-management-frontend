@@ -14,7 +14,7 @@
 }
 .frame_chat_title {
   height: 80px;
-  background-color: var(--bgColor2);
+  background-color: var(--bgColor4);
   display: flex;
   align-items: center;
   padding-left: 40px;
@@ -111,7 +111,7 @@
 }
 .form_mess_user_content_text {
   padding: 10px 10px;
-  background-color: var(--bgColor2);
+  background-color: var(--bgColor4);
   text-align: right;
   border-radius: 5px;
 }
