@@ -42,14 +42,6 @@ export default function login() {
   };
   return (
     <div className={styles.loginPage}>
-      <div className={styles.loginPage_left}>
-        <Image
-          src="/bg_login.png"
-          layout="fill"
-          objectFit="cover"
-          alt="Picture of the author"
-        />
-      </div>
       <div className={styles.loginPage_right}>
         <div className={styles.loginPage_right_title}>
           <div className={styles.loginPage_right_title_Lg}>
@@ -88,10 +80,6 @@ export default function login() {
           <button onClick={handleLogin} className={styles.btnContiue}>
             Đăng Nhập
           </button>
-          <span className={styles.txtHaveAcc}>Tạo tài khoản</span>
-          <Link className={styles.linkLogin} href="/register/step1">
-            Đăng Ký
-          </Link>
         </div>
       </div>
     </div>
