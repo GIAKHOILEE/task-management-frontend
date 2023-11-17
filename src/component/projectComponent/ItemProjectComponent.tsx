@@ -82,11 +82,14 @@ export default function ItemProjectComponent({
       );
       if (response.ok) {
         // setAlertType("success");
-        setAlertMessage("Xóa thành công");
+        alert("Xóa thành công");
         // setShowAlert(true);
 
         setOpenMenu(false);
         fetchData();
+      }
+      if (!response.ok) {
+        alert("Không thể xóa, Dự án đang còn công việc");
       }
     } catch (error) {
       console.log(error);
