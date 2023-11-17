@@ -15,6 +15,20 @@ export default function ChartKpiProject({
   totalTaskCount,
   doneTaskCount,
 }: DataProgress) {
+  console.log(planProgress);
+  if (
+    isNaN(planProgress) ||
+    isNaN(actualProgress) ||
+    isNaN(kpiPerformance) ||
+    isNaN(totalTaskCount) ||
+    isNaN(doneTaskCount)
+  ) {
+    planProgress = 0;
+    actualProgress = 0;
+    kpiPerformance = 1;
+    totalTaskCount = 0;
+    doneTaskCount = 0;
+  }
   if (planProgress == 0) {
     planProgress = 1;
   }

@@ -14,6 +14,11 @@ export default function DashboardFoodter({
   kpiPerformance,
 }: dataProps) {
   const [dataAssign, setDataAssign] = useState<UserType[]>([]);
+  if (isNaN(kpiPerformance) || isNaN(totalTaskCount)) {
+    // Handle the case where data is not available
+    kpiPerformance = 1;
+    totalTaskCount = 0;
+  }
 
   const getAllAssign = async () => {
     try {

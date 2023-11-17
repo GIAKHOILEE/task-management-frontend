@@ -44,7 +44,17 @@ export default function MenuConponent() {
             Quản Lý Dự Án
           </div>
         </Link>
-        <div className={styles.menu_content_item} onClick={handleMenuMess}>
+        <Link href="/messageGpt">
+          <div className={styles.menu_content_item}>
+            <img
+              className={styles.menu_content_icon}
+              src="/iconChatbot.png"
+              alt="iconChatbot"
+            />
+            Bot Chat Hỗ Trợ
+          </div>
+        </Link>
+        {/* <div className={styles.menu_content_item} onClick={handleMenuMess}>
           <img
             className={styles.menu_content_icon}
             src="/iconMessage.png"
@@ -103,7 +113,7 @@ export default function MenuConponent() {
             src="/iconArrowback.png"
             alt="iconSetting"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -11,8 +11,11 @@ export default function PieChartProjectProgress({
   planProgress,
   actualProgress,
 }: DataProgress) {
-  // console.log(planProgress, actualProgress);
-
+  console.log(planProgress, actualProgress);
+  if (isNaN(planProgress) || isNaN(actualProgress)) {
+    planProgress = 0;
+    actualProgress = 0;
+  }
   const dataPlanProgress = [
     {
       name: "planProgress",
