@@ -8,6 +8,8 @@ import { UserType } from "@/typeDatabase/TypeDatabase";
 import { v4 as uuidv4 } from "uuid";
 import { imageDb } from "@/firebase/firebaseConfig";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import AlertComponent from "@/component/alertComponent/AlertComponent";
+
 export default function page() {
   const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -19,8 +21,12 @@ export default function page() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [avatarUuid, setAvatarUuid] = useState<string | null>(null);
-  const [updateDone, setUpdateDone] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSuccessDeleteAlert, setShowSuccessDeleteAlert] = useState(false);
+  const [showWanningDeleteAlert, setShowWanningDeleteAlert] = useState(false);
   async function getAllUser() {
     try {
       const response = await fetch("http://localhost:8080/user/findAllUser");
@@ -85,11 +91,11 @@ export default function page() {
         body: JSON.stringify(payload),
       });
       if (response.ok) {
-        alert("Update thành công:");
-        // localStorage.setItem("user", JSON.stringify(payload));
-        setUpdateDone(true);
+        setShowSuccessAlert(true);
+        setFormChangeInfo(false);
       } else {
         console.error("Lỗi khi cập nhật:", response.statusText);
+        setShowErrorAlert(true);
       }
     } catch (error) {
       console.error("Có lỗi xảy ra:", error);
@@ -109,15 +115,34 @@ export default function page() {
         }
       );
       if (response.ok) {
-        alert("Xóa thành công");
+        setShowSuccessDeleteAlert(true);
+        // alert("Xóa thành công");
         setConfirmDelete(false);
       } else {
-        alert("Không thể xóa! Dự án đang được quản lý bởi nhân viên này.");
+        setShowWanningDeleteAlert(true);
+        // alert("Không thể xóa! Dự án đang được quản lý bởi nhân viên này.");
       }
     } catch (error) {
       console.error(error);
+      setShowWanningDeleteAlert(true);
     }
   };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setShowSuccessAlert(false);
+      setShowErrorAlert(false);
+      setShowSuccessDeleteAlert(false);
+      setShowWanningDeleteAlert(false);
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
+  }, [
+    showSuccessAlert,
+    showErrorAlert,
+    showSuccessDeleteAlert,
+    showWanningDeleteAlert,
+  ]);
   return (
     <div
       className={styles.adminpage}
@@ -125,6 +150,33 @@ export default function page() {
         setFormChangeInfo(false);
       }}
     >
+      <div className={styles.alert_log}>
+        {showSuccessAlert && (
+          <AlertComponent
+            severity="success"
+            message="Cập nhật thông tin nhân viên thành công"
+          />
+        )}
+        {showErrorAlert && (
+          <AlertComponent
+            severity="error"
+            message="Có lỗi khi cập nhật thông tin"
+          />
+        )}
+        {showSuccessDeleteAlert && (
+          <AlertComponent
+            severity="success"
+            message="Xóa nhân viên thành công"
+          />
+        )}
+        {showWanningDeleteAlert && (
+          <AlertComponent
+            severity="warning"
+            message="Không thể xóa! Dự án đang được quản lý bởi nhân viên này"
+          />
+        )}
+      </div>
+
       <div className={styles.adminpage_title}>Danh Sách Nhân Viên</div>
       <table className={styles.employee_table}>
         <thead>

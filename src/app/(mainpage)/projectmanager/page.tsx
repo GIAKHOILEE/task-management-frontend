@@ -11,6 +11,7 @@ import React from "react";
 import ItemProjectComponent from "@/component/projectComponent/ItemProjectComponent";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import AlertComponent from "@/component/alertComponent/AlertComponent";
 type Item = {
   itemId: string;
   projectId: string;
@@ -48,6 +49,19 @@ export default function projectmanager() {
   const [isUserProject, setIsUserProject] = useState(false);
   const [checkDay, setCheckDay] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [alertSuccessCrProject, setAlertShowSuccessCrProject] = useState(false);
+  const [alertInfoNotUserProject, setAlertInfoNotUserProject] = useState(false);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setAlertShowSuccessCrProject(false);
+      setAlertInfoNotUserProject(false);
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
+  }, [alertSuccessCrProject, alertInfoNotUserProject]);
+
   // const [projects, setProjects] = useState<Item[]>([]);
   const [initialData, setInitialData] = useState<InitialData>({
     items: {},
@@ -159,8 +173,8 @@ export default function projectmanager() {
 
       if (response.ok) {
         const data = await response.json();
-
-        alert("tạo project thành công");
+        setAlertShowSuccessCrProject(true);
+        // alert("tạo project thành công");
         setOpenCreateForm(false);
 
         const memberData = {
@@ -241,6 +255,8 @@ export default function projectmanager() {
   async function getProjectUsers(projectID: any) {
     const userObject = JSON.parse(localStorage.getItem("user") as string);
     const userId = userObject.userId;
+    const userEmail = userObject.email;
+
     try {
       const response = await fetch(
         `http://localhost:8080/project/${projectID}/user-in-project`,
@@ -257,13 +273,14 @@ export default function projectmanager() {
 
       const data = await response.json();
       // console.log(data);
-      const isUserInProject = data.some((user: any) => user.userId == userId);
+      const isUserInProject = data.some((user: any) => user.email == userEmail);
       // alert(userId);
       if (isUserInProject) {
         setIsUserProject(true);
-      } else {
+      } else if (!isUserInProject) {
         setIsUserProject(false);
-        alert("bạn không phải thành viên của dự án");
+        setAlertInfoNotUserProject(true);
+        // alert("bạn không phải thành viên của dự án");
       }
     } catch (error) {
       console.error(error);
@@ -271,6 +288,17 @@ export default function projectmanager() {
   }
   return (
     <div className={styles.projectmanager}>
+      <div className={styles.alert_log}>
+        {alertSuccessCrProject && (
+          <AlertComponent severity="success" message="Tạo dự án thành công" />
+        )}
+        {alertInfoNotUserProject && (
+          <AlertComponent
+            severity="info"
+            message="Bạn không phải là thành viên dự án"
+          />
+        )}
+      </div>
       <div>
         <span className={styles.projectmanager_navigation}>
           Quản lý dự án {">"}{" "}

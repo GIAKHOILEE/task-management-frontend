@@ -1,8 +1,8 @@
 "use client";
 import styles from "./ItemProjectComponent.module.css";
 import CircleAvatarComponent from "../circleAvatarComponent/CircleAvatarComponent";
-import { useState } from "react";
-import Alert from "../alertComponent/AlertComponent";
+import { useEffect, useState } from "react";
+import AlertComponent from "../alertComponent/AlertComponent";
 interface ProjectItemProps {
   projectId: string;
   owner_project: string;
@@ -54,18 +54,34 @@ export default function ItemProjectComponent({
   const [startDate, setStartDate] = useState(start_date);
   const [endDate, setEndDate] = useState(end_date);
   const [checkDay, setCheckDay] = useState("");
-
   const [error, setError] = useState("");
-  //alert
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
-  const [alertType, setAlertType] = useState<
-    "success" | "warning" | "error" | ""
-  >("");
+
+  const [AlertSuccessDeleteProject, setAlertSuccessDeleteProject] =
+    useState(false);
+  const [AlertWarningDeleteProject, setAlertWarningDeleteProject] =
+    useState(false);
+  const [AlertSuccessUpdateProject, setAlertSuccessUpdateProject] =
+    useState(false);
+  const [AlertInfoNotOwnerProject, setAlertInfoNotOwnerProject] =
+    useState(false);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setAlertSuccessDeleteProject(false);
+      setAlertWarningDeleteProject(false);
+      setAlertSuccessUpdateProject(false);
+      setAlertInfoNotOwnerProject(false);
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
+  }, [
+    AlertSuccessDeleteProject,
+    AlertWarningDeleteProject,
+    AlertSuccessUpdateProject,
+    AlertInfoNotOwnerProject,
+  ]);
 
   const user = localStorage.getItem("user");
   const emailUser = user ? JSON.parse(user).email : null;
-  // alert(emailUser);
 
   //delete project
   async function deleteProject() {
@@ -82,14 +98,16 @@ export default function ItemProjectComponent({
       );
       if (response.ok) {
         // setAlertType("success");
-        alert("Xóa thành công");
+        // alert("Xóa thành công");
         // setShowAlert(true);
 
         setOpenMenu(false);
         fetchData();
+        setAlertSuccessDeleteProject(true);
       }
       if (!response.ok) {
-        alert("Không thể xóa, Dự án đang còn công việc");
+        setAlertWarningDeleteProject(true);
+        // alert("Không thể xóa, Dự án đang còn công việc");
       }
     } catch (error) {
       console.log(error);
@@ -129,7 +147,8 @@ export default function ItemProjectComponent({
         // setAlertType("success");
         // setAlertMessage("Cập nhật thành công");
         // setShowAlert(true);
-        alert("cập nhật thành công");
+        setAlertSuccessUpdateProject(true);
+        // alert("cập nhật thành công");
         setOpenUpdate(false);
         setOpenMenu(false);
         fetchData();
@@ -153,9 +172,29 @@ export default function ItemProjectComponent({
   return (
     <>
       <div className={styles.item_project}>
-        {/* {showAlert && alertType && (
-          <Alert type={alertType} message={alertMessage} />
-        )} */}
+        <div className={styles.alert_log}>
+          {AlertSuccessDeleteProject && (
+            <AlertComponent severity="success" message="Xóa dự án thành công" />
+          )}
+          {AlertWarningDeleteProject && (
+            <AlertComponent
+              severity="warning"
+              message="Không thể xóa, Dự án đang còn công việc"
+            />
+          )}
+          {AlertSuccessUpdateProject && (
+            <AlertComponent
+              severity="success"
+              message="Cập nhật dự án thành công"
+            />
+          )}
+          {AlertInfoNotOwnerProject && (
+            <AlertComponent
+              severity="info"
+              message="Bạn không phải là quản lý dự án"
+            />
+          )}
+        </div>
         <img
           className={styles.icon}
           src="/iconMenuVerticalicon.png"
@@ -181,7 +220,8 @@ export default function ItemProjectComponent({
                 if (emailUser === owner_project) {
                   setOpenUpdate(true);
                 } else {
-                  alert("bạn không phải người quản lý dự án này");
+                  setAlertInfoNotOwnerProject(true);
+                  // alert("bạn không phải người quản lý dự án này");
                   setOpenMenu(false);
                 }
               }}
@@ -194,7 +234,8 @@ export default function ItemProjectComponent({
                 if (emailUser === owner_project) {
                   deleteProject();
                 } else {
-                  alert("bạn không phải là người quản lý dự án này");
+                  setAlertInfoNotOwnerProject(true);
+                  // alert("bạn không phải là người quản lý dự án này");
                   setOpenMenu(false);
                 }
               }}

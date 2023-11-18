@@ -172,3 +172,11 @@
   color: var(--textColor);
   margin-bottom: 10px;
 }
+.alert_log {
+  width: 600px;
+  position: fixed;
+  top: 90px;
+  right: 0px;
+  z-index: 1000;
+  /* animation: opaci 3s linear infinite; */
+}

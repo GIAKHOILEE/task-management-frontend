@@ -9,7 +9,7 @@ import { ProjectIDContext } from "@/context/ProjectIDContext";
 import { UserProjectInProjectContext } from "@/context/UserProjectInProjectContext";
 import { IdProjectOwner } from "@/context/IdProjectOwner";
 import { UserProjectType, UserType } from "@/typeDatabase/TypeDatabase";
-
+import AlertComponent from "@/component/alertComponent/AlertComponent";
 type LayoutProps = {
   params: { slugProject: string };
   children: React.ReactNode;
@@ -33,6 +33,30 @@ export default function layout({ params, children }: LayoutProps) {
     setSelectedItem(item);
   };
   const projectID = params.slugProject;
+
+  const [AlertSuccessAddUserProject, setAlertSuccessAddUserProject] =
+    useState(false);
+  const [AlertSuccessDeleteUserProject, setAlertSuccessDeleteUserProject] =
+    useState(false);
+  const [AlertWarningDeleteUserProject, setAlertWarningDeleteUserProject] =
+    useState(false);
+  const [AlertInfoNotOwner, setAlertInfoNotOwner] = useState(false);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setAlertSuccessAddUserProject(false);
+      setAlertSuccessDeleteUserProject(false);
+      setAlertWarningDeleteUserProject(false);
+      setAlertInfoNotOwner(false);
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
+  }, [
+    AlertSuccessAddUserProject,
+    AlertSuccessDeleteUserProject,
+    AlertWarningDeleteUserProject,
+    AlertInfoNotOwner,
+  ]);
 
   // lấy (userProject) trong project
   async function getProjectUsers() {
@@ -100,7 +124,8 @@ export default function layout({ params, children }: LayoutProps) {
         }),
       });
       if (response) {
-        alert("thêm thành công");
+        setAlertSuccessAddUserProject(true);
+        // alert("thêm thành công");
         getProjectUsers();
         getUserNotInProject();
       }
@@ -124,12 +149,14 @@ export default function layout({ params, children }: LayoutProps) {
         }
       );
       if (response.ok) {
-        alert("xóa thành công");
+        setAlertSuccessDeleteUserProject(true);
+        // alert("xóa thành công");
         getProjectUsers();
         getUserNotInProject();
       }
       if (!response.ok) {
-        alert("Không thể xóa!!! Người này còn đang trong công việc");
+        setAlertWarningDeleteUserProject(true);
+        // alert("Không thể xóa!!! Người này còn đang trong công việc");
       }
     } catch (error) {
       console.log(error);
@@ -137,6 +164,32 @@ export default function layout({ params, children }: LayoutProps) {
   }
   return (
     <div className={styles.slug_layout}>
+      <div className={styles.alert_log}>
+        {AlertInfoNotOwner && (
+          <AlertComponent
+            severity="info"
+            message="Bạn không phải là quản lý dự án"
+          />
+        )}
+        {AlertSuccessAddUserProject && (
+          <AlertComponent
+            severity="success"
+            message="Thêm người dùng vào dự án thành công"
+          />
+        )}
+        {AlertSuccessDeleteUserProject && (
+          <AlertComponent
+            severity="success"
+            message="Xóa người dùng khỏi dự án thành công"
+          />
+        )}
+        {AlertWarningDeleteUserProject && (
+          <AlertComponent
+            severity="warning"
+            message="Không thể xóa!!! Người này còn đang trong công việc"
+          />
+        )}
+      </div>
       <div className={styles.slug_layout_route}>
         <span>
           Quản lý dự án {" > "} Dự án {" > "}
@@ -264,7 +317,8 @@ export default function layout({ params, children }: LayoutProps) {
                           if (userId == IdProjectowner) {
                             addUserProject(user.userId);
                           } else {
-                            alert("bạn không phải người quản lý dự án");
+                            setAlertInfoNotOwner(true);
+                            // alert("bạn không phải người quản lý dự án");
                           }
                           // setUserID(user.userId);
                         }}
@@ -301,7 +355,8 @@ export default function layout({ params, children }: LayoutProps) {
                             if (userId == IdProjectowner) {
                               deleteUserProject(user.user.userId);
                             } else {
-                              alert("bạn không phải người quản lý dự án");
+                              setAlertInfoNotOwner(true);
+                              // alert("bạn không phải người quản lý dự án");
                             }
                           }}
                         >

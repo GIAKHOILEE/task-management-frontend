@@ -1,31 +1,19 @@
 import React, { useEffect, useState } from "react";
 import styles from "./alertComponent.module.css";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
-type AlertProps = {
-  type: "success" | "warning" | "error";
+interface AlertComponentProps {
+  severity: "error" | "warning" | "info" | "success";
   message: string;
-};
-
-const Alert: React.FC<AlertProps> = React.memo(({ type, message }) => {
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-    }, 3000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [message]);
-
-  if (!isVisible) return null;
-
+}
+export default function AlertComponent({
+  severity,
+  message,
+}: AlertComponentProps) {
   return (
-    <div className={`${styles.alert} ${styles[type]} ${styles.show}`}>
-      {message}
-    </div>
+    <Stack sx={{ width: "100%" }} spacing={2}>
+      <Alert severity={severity}>{message}</Alert>
+    </Stack>
   );
-});
-
-export default Alert;
+}

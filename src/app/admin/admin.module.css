@@ -199,3 +199,19 @@
   margin-left: 18px;
   border-radius: 3px;
 }
+.alert_log {
+  width: 600px;
+  position: fixed;
+  top: 90px;
+  right: 0px;
+  z-index: 1000;
+  /* animation: opaci 5s linear; */
+}
+/* @keyframes opaci {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+} */

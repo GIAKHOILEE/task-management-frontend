@@ -5,6 +5,7 @@ import { ProjectIDContext } from "@/context/ProjectIDContext";
 import { UserProjectInProjectContext } from "@/context/UserProjectInProjectContext";
 import { IdProjectOwner } from "@/context/IdProjectOwner";
 import { AssigneeType } from "@/typeDatabase/TypeDatabase";
+import AlertComponent from "../alertComponent/AlertComponent";
 type TaskType = {
   id: string;
   idTask: number;
@@ -50,6 +51,31 @@ function ItemTaskComponent({
   const [openBoxmAddPeople, setOpenBoxAddPeople] = useState(false);
   const [openSelectViewPeople, setOpenSelectViewPeople] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [AlertSuccessDeleteTask, setAlertSuccessDeleteTask] = useState(false);
+  const [AlertSuccessUpdateTask, setAlertSuccessUpdateTask] = useState(false);
+  const [AlertSuccessDeleteUserTask, setAlertSuccessDeleteUserTask] =
+    useState(false);
+  const [AlertSuccessAddUserTask, setAlertSuccessAddUserTask] = useState(false);
+  const [AlertInfoNotOwnerProject, setAlertInfoNotOwnerProject] =
+    useState(false);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setAlertSuccessDeleteTask(false);
+      setAlertSuccessUpdateTask(false);
+      setAlertSuccessDeleteUserTask(false);
+      setAlertInfoNotOwnerProject(false);
+      setAlertSuccessAddUserTask(false);
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
+  }, [
+    AlertSuccessDeleteTask,
+    AlertSuccessUpdateTask,
+    AlertSuccessDeleteUserTask,
+    AlertInfoNotOwnerProject,
+    AlertSuccessAddUserTask,
+  ]);
 
   // kiểm tra ngày
   function handleEndDateChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -99,7 +125,8 @@ function ItemTaskComponent({
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       if (response.ok) {
-        alert("cập nhật thành công");
+        setAlertSuccessUpdateTask(true);
+        // alert("cập nhật thành công");
         setOpenUpdate(false);
       }
       const result = await response.json();
@@ -118,14 +145,19 @@ function ItemTaskComponent({
           method: "DELETE",
         }
       );
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       if (response.ok) {
-        alert("xóa thành công");
+        setAlertSuccessDeleteTask(true);
+        // alert("xóa task thành công");
         setOpenUpdate(false);
       }
       setRefreshCount((prevCount) => prevCount + 1);
+
+      // const result = await response.json();
+      // console.log(result);
     } catch (error) {
       console.error("Error updating the task:", error);
     }
@@ -176,6 +208,7 @@ function ItemTaskComponent({
       );
       if (response) {
         getAllAssignByTaskId();
+        setAlertSuccessAddUserTask(true);
       }
     } catch (error) {
       console.log(error);
@@ -193,7 +226,8 @@ function ItemTaskComponent({
       }
     );
     if (response) {
-      alert("Xóa thành công");
+      setAlertSuccessDeleteUserTask(true);
+      // alert("Xóa người dùng thành công");
       getAllAssignByTaskId();
     }
   };
@@ -216,6 +250,38 @@ function ItemTaskComponent({
 
   return (
     <>
+      <div className={styles.alert_log}>
+        {AlertSuccessAddUserTask && (
+          <AlertComponent
+            severity="success"
+            message="Thêm người dùng vào công việc thành công"
+          />
+        )}
+        {AlertSuccessDeleteTask && (
+          <AlertComponent
+            severity="success"
+            message="Xóa công việc thành công"
+          />
+        )}
+        {AlertSuccessUpdateTask && (
+          <AlertComponent
+            severity="success"
+            message="Cập nhật công việc thành công"
+          />
+        )}
+        {AlertInfoNotOwnerProject && (
+          <AlertComponent
+            severity="info"
+            message="Bạn không phải là người quản lý"
+          />
+        )}
+        {AlertSuccessDeleteUserTask && (
+          <AlertComponent
+            severity="success"
+            message="Xóa người dùng khỏi công việc thành công"
+          />
+        )}
+      </div>
       <div
         ref={provided.innerRef}
         {...provided.draggableProps}
@@ -244,7 +310,8 @@ function ItemTaskComponent({
                   if (IdProjectowner == userId) {
                     setOpenUpdate(true);
                   } else {
-                    alert("Bạn không phải là quản lý của dự án");
+                    setAlertInfoNotOwnerProject(true);
+                    // alert("Bạn không phải là quản lý của dự án");
                   }
                 }}
               >
@@ -256,7 +323,9 @@ function ItemTaskComponent({
                   if (IdProjectowner == userId) {
                     deleteTask();
                   } else {
-                    alert("Bạn không phải là quản lý của dự án");
+                    setAlertInfoNotOwnerProject(true);
+
+                    // alert("Bạn không phải là quản lý của dự án");
                   }
                 }}
               >
@@ -493,7 +562,9 @@ function ItemTaskComponent({
                             if (userId == IdProjectowner) {
                               addAssignToTask(task.idTask, user.userProjectId);
                             } else {
-                              alert("bạn không phải người quản lý dự án");
+                              setAlertInfoNotOwnerProject(true);
+
+                              // alert("bạn không phải người quản lý dự án");
                             }
                             // setUserID(user.userId);
                           }}
@@ -534,7 +605,9 @@ function ItemTaskComponent({
                               if (userId == IdProjectowner) {
                                 deleteAssignTask(user.assignmentId);
                               } else {
-                                alert("bạn không phải người quản lý dự án");
+                                setAlertInfoNotOwnerProject(true);
+
+                                // alert("bạn không phải người quản lý dự án");
                               }
                             }}
                           >

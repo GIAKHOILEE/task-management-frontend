@@ -6,7 +6,7 @@ import ItemTaskComponent from "@/component/projectComponent/ItemTaskComponent";
 import { ProjectIDContext } from "@/context/ProjectIDContext";
 import { UserProjectInProjectContext } from "@/context/UserProjectInProjectContext";
 import { headers } from "next/dist/client/components/headers";
-
+import AlertComponent from "@/component/alertComponent/AlertComponent";
 type TaskType = {
   id: string;
   idTask: number;
@@ -65,6 +65,18 @@ export default function taskboard() {
   // console.log(userProjectInProject);
   const [ownerProject, setOwnerProject] = useState<number>();
   const [ownerUserProject, setOwnerUserProject] = useState<number>();
+
+  const [AlertSuccessCrTask, setAlertSuccessCrTask] = useState(false);
+  const [AlertInfoNotOwner, setAlertInfoNotOwner] = useState(false);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setAlertSuccessCrTask(false);
+      setAlertInfoNotOwner(false);
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
+  }, [AlertSuccessCrTask, AlertInfoNotOwner]);
 
   useEffect(() => {
     if (userProjectInProject && Array.isArray(userProjectInProject)) {
@@ -236,7 +248,8 @@ export default function taskboard() {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-        alert("tạo task thành công");
+        setAlertSuccessCrTask(true);
+        // alert("tạo task thành công");
         if (ownerUserProject !== undefined) {
           addAssignToTask(data.taskId, ownerUserProject);
         }
@@ -379,6 +392,20 @@ export default function taskboard() {
   };
   return (
     <>
+      <div className={styles.alert_log}>
+        {AlertSuccessCrTask && (
+          <AlertComponent
+            severity="success"
+            message="Tạo công việc thành công"
+          />
+        )}
+        {AlertInfoNotOwner && (
+          <AlertComponent
+            severity="info"
+            message="Bạn không phải người quản lý dự án"
+          />
+        )}
+      </div>
       <button
         className={styles.btn_create_task}
         onClick={() => {
@@ -386,7 +413,8 @@ export default function taskboard() {
           if (userId == ownerProject) {
             setOpenCreateForm(true);
           } else {
-            alert("Bạn không có quyền mở biểu mẫu tạo công việc");
+            setAlertInfoNotOwner(true);
+            // alert("Bạn không có quyền mở biểu mẫu tạo công việc");
             // console.log(userId, ownerProject);
           }
         }}
