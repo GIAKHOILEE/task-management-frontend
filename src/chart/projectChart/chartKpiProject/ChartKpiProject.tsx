@@ -68,7 +68,8 @@ export default function ChartKpiProject({
         <div
           className={`${styles.kpi_chart_parameter} ${styles[kpiProgressClass]}`}
         >
-          {kpiProgress * 100}% - {classParameterProgress}
+          {parseFloat((kpiProgress * 100).toFixed(2))}% -{" "}
+          {classParameterProgress}
         </div>
         {kpiProgressClass == "verylow" && (
           <div className={styles.kpi_container}>

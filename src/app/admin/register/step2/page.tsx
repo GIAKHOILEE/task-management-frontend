@@ -94,7 +94,7 @@ export default function login() {
           if (registerResponse.ok) {
             console.log("Đăng ký thành công");
             localStorage.removeItem("userData");
-            router.push("/register/registerdone");
+            router.push("/admin/register/registerdone");
           } else {
             console.error(
               "Lỗi từ server khi đăng ký:",

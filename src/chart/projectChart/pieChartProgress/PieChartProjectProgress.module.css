@@ -1,6 +1,7 @@
 .chartContainer {
   display: flex;
   align-items: center;
+  margin-right: 10px;
 }
 .define_color_text {
   font-weight: 500;

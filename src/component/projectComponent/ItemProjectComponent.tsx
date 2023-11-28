@@ -245,7 +245,7 @@ export default function ItemProjectComponent({
           </div>
         )}
 
-        <div>{projectId}</div>
+        {/* <div>{projectId}</div> */}
         <span className={styles[levelClassMap[level]]}>
           {levelTextMap[level] || "Dễ"}
         </span>

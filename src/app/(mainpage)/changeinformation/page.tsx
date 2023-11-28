@@ -102,7 +102,7 @@ export default function changeInformation() {
       });
       if (response.ok) {
         const data = await response.json();
-        alert("Update thành công:");
+        // alert("Update thành công:");
         localStorage.setItem("user", JSON.stringify(payload));
         setUpdateDone(true);
       } else {

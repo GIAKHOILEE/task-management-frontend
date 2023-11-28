@@ -6,6 +6,7 @@ export type UserType = {
   phone: number;
   password: string;
   avatar: string | null;
+  role: string;
 };
 export type ProjectType = {
   projectId: number;

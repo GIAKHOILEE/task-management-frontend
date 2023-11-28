@@ -559,7 +559,7 @@ export default function taskboard() {
                 className={styles.crateProject_form_btnCreate}
                 onClick={() => createTask(newTask)}
               >
-                Tạo Dự Án
+                Tạo Công Việc
               </button>
             </div>
           </div>

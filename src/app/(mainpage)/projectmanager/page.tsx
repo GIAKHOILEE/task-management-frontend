@@ -53,6 +53,17 @@ export default function projectmanager() {
   const [alertSuccessCrProject, setAlertShowSuccessCrProject] = useState(false);
   const [alertInfoNotUserProject, setAlertInfoNotUserProject] = useState(false);
 
+  const [isCeo, setIsCeo] = useState(false);
+
+  useEffect(() => {
+    const userDataString = localStorage.getItem("user");
+    const userData = JSON.parse(userDataString || "{}");
+    const userRole = userData.role;
+    if (userRole == "ceo") {
+      setIsCeo(true);
+    }
+  }, []);
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setAlertShowSuccessCrProject(false);
@@ -275,12 +286,12 @@ export default function projectmanager() {
       // console.log(data);
       const isUserInProject = data.some((user: any) => user.email == userEmail);
       // alert(userId);
-      if (isUserInProject) {
+
+      if (isUserInProject || isCeo) {
         setIsUserProject(true);
       } else if (!isUserInProject) {
         setIsUserProject(false);
         setAlertInfoNotUserProject(true);
-        // alert("bạn không phải thành viên của dự án");
       }
     } catch (error) {
       console.error(error);

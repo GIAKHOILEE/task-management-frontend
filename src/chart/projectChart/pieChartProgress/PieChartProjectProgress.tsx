@@ -69,10 +69,12 @@ export default function PieChartProjectProgress({
       </PieChart>
       <div className={styles.define_color}>
         <div className={styles.define_color_text}>Tiến độ kế hoach</div>
-        <div className={styles.define_color_percent_plan}>{planProgress}%</div>
+        <div className={styles.define_color_percent_plan}>
+          {planProgress.toFixed(2)}%
+        </div>
         <div className={styles.define_color_text}>Tiến độ thực tế</div>
         <div className={styles.define_color_percent_actual}>
-          {actualProgress}%
+          {actualProgress.toFixed(2)}%
         </div>
       </div>
     </div>

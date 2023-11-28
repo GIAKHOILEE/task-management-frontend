@@ -22,8 +22,8 @@ export default function page() {
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
   const userId = user ? user.userId : null;
-  const userEmail = user ? user.userEmail : null;
-
+  const userEmail = user ? user.email : null;
+  console.log(userEmail, userId);
   const currentDate = new Date();
   const formattedDate = format(currentDate, "dd-MM-yyyy HH:mm:ss");
   const handleSendMessage = async (prompt: string) => {
@@ -38,7 +38,7 @@ export default function page() {
         body: JSON.stringify({ prompt, userId }),
       });
       const data = await response.text();
-      console.log(data);
+      // console.log(data);
 
       if (!response.ok) {
         // throw new Error(`HTTP error! Status: ${response.status}`);
@@ -60,7 +60,7 @@ export default function page() {
 
   const getAllMessage = async () => {
     try {
-      const response = await fetch("http://localhost:8080/bot/user/1", {
+      const response = await fetch(`http://localhost:8080/bot/user/${userId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

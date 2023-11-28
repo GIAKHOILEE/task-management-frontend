@@ -93,6 +93,7 @@ export default function page() {
       if (response.ok) {
         setShowSuccessAlert(true);
         setFormChangeInfo(false);
+        getAllUser();
       } else {
         console.error("Lỗi khi cập nhật:", response.statusText);
         setShowErrorAlert(true);
@@ -118,6 +119,7 @@ export default function page() {
         setShowSuccessDeleteAlert(true);
         // alert("Xóa thành công");
         setConfirmDelete(false);
+        getAllUser();
       } else {
         setShowWanningDeleteAlert(true);
         // alert("Không thể xóa! Dự án đang được quản lý bởi nhân viên này.");
@@ -219,16 +221,20 @@ export default function page() {
                 />
               </td>
               <td className={styles.column_sm}>
-                <img
-                  className={styles.icon}
-                  src="/iconRemoveUser.png"
-                  alt=""
-                  onClick={(e) => {
-                    e.stopPropagation;
-                    setSelectedUser(user);
-                    setConfirmDelete(true);
-                  }}
-                />
+                {user.role === "ceo" ? (
+                  <div>CEO</div>
+                ) : (
+                  <img
+                    className={styles.icon}
+                    src="/iconRemoveUser.png"
+                    alt=""
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedUser(user);
+                      setConfirmDelete(true);
+                    }}
+                  />
+                )}
               </td>
             </tr>
           ))}

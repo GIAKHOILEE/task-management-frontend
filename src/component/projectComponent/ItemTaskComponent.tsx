@@ -291,7 +291,7 @@ function ItemTaskComponent({
           setOpenMenuItem(false);
         }}
       >
-        <div>{task.idTask}</div>
+        {/* <div>{task.idTask}</div> */}
         <div>
           <img
             onClick={(e) => {
