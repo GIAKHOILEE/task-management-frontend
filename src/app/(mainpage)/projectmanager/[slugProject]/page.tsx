@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import styles from "./overview.module.css";
 import { ProjectIDContext } from "@/context/ProjectIDContext";
 import { TasksContext } from "@/context/TasksContext";
@@ -10,11 +10,33 @@ import BarChartTaskStatus from "@/chart/taskChart/barChartStatus/BarChartTaskSta
 import StackBarChartTaskStatus from "@/chart/taskChart/stackBarChartStatus/StackBarChartTaskStatus";
 import LineChartTask from "@/chart/taskChart/lineChartTask/LineChartTask";
 import { TaskType, AssigneeType } from "@/typeDatabase/TypeDatabase";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 const Overview: React.FC = () => {
   const projectID = useContext(ProjectIDContext);
   const [tasks, setTasks] = useState<TaskType[]>([]);
   const [assignment, setAssignment] = useState<AssigneeType[]>([]);
+
+  const componentRef = useRef<HTMLDivElement | null>(null);
+
+  const downloadPDF = () => {
+    if (!componentRef.current) return;
+
+    const capture = componentRef.current;
+
+    html2canvas(capture).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = pdfWidth;
+      const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+
+      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+      pdf.save("Thống kê công việc.pdf");
+    });
+  };
 
   //lấy all task theo project id
   const getAllTask = async () => {
@@ -46,30 +68,35 @@ const Overview: React.FC = () => {
     getAllAssignment();
   }, [projectID]);
 
-  console.log(assignment);
+  // console.log(assignment);
 
   return (
     <>
-      <div className={styles.line_1_chart}>
-        <TasksContext.Provider value={tasks}>
-          <PieChartTaskStatus />
-        </TasksContext.Provider>
-        <TasksContext.Provider value={tasks}>
-          <PieChartTaskLevel />
-        </TasksContext.Provider>
-      </div>
-      <div className={styles.line_2_chart}>
-        <TasksContext.Provider value={tasks}>
-          <BarChartTaskStatus />
-        </TasksContext.Provider>
-        <AssignmentContext.Provider value={assignment}>
-          <StackBarChartTaskStatus />
-        </AssignmentContext.Provider>
-      </div>
-      <div>
-        <TasksContext.Provider value={tasks}>
-          <LineChartTask />
-        </TasksContext.Provider>
+      <button className={styles.btn_downpdf} onClick={downloadPDF}>
+        Tạo file PDF
+      </button>
+      <div ref={componentRef}>
+        <div className={styles.line_1_chart}>
+          <TasksContext.Provider value={tasks}>
+            <PieChartTaskStatus />
+          </TasksContext.Provider>
+          <TasksContext.Provider value={tasks}>
+            <PieChartTaskLevel />
+          </TasksContext.Provider>
+        </div>
+        <div className={styles.line_2_chart}>
+          <TasksContext.Provider value={tasks}>
+            <BarChartTaskStatus />
+          </TasksContext.Provider>
+          <AssignmentContext.Provider value={assignment}>
+            <StackBarChartTaskStatus />
+          </AssignmentContext.Provider>
+        </div>
+        <div>
+          <TasksContext.Provider value={tasks}>
+            <LineChartTask />
+          </TasksContext.Provider>
+        </div>
       </div>
     </>
   );

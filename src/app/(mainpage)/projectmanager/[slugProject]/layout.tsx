@@ -42,6 +42,7 @@ export default function layout({ params, children }: LayoutProps) {
     useState(false);
   const [AlertInfoNotOwner, setAlertInfoNotOwner] = useState(false);
 
+  // kiểm tra alert
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setAlertSuccessAddUserProject(false);
@@ -79,6 +80,14 @@ export default function layout({ params, children }: LayoutProps) {
       setUserInProject(data);
       setProjectName(data[0].project.projectName);
 
+      localStorage.setItem(
+        "startProject",
+        JSON.stringify(data[0].project.startDate)
+      );
+      localStorage.setItem(
+        "endProject",
+        JSON.stringify(data[0].project.endDate)
+      );
       const owner = data.find((user: any) => user.role === "owner");
       if (owner) {
         const ownerId = owner.user.userId;
