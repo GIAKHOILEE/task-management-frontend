@@ -44,6 +44,7 @@ export default function projectmanager() {
   const [status, setStatus] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [refreshCount, setRefreshCount] = useState(1);
 
   const [error, setError] = useState("");
   const [isUserProject, setIsUserProject] = useState(false);
@@ -97,10 +98,18 @@ export default function projectmanager() {
   }
   //Api lấy tất cả project
   async function fetchProjects() {
+    const userObject = JSON.parse(localStorage.getItem("user") as string);
+    const userId = userObject.userId;
+    const userRole = userObject.role;
+
+    let apiUrl;
+    if (userRole == "ceo") {
+      apiUrl = "http://localhost:8080/project/getAllProject";
+    } else {
+      apiUrl = `http://localhost:8080/project/getProjectByUserId/${userId}`;
+    }
     try {
-      const response = await fetch(
-        "http://localhost:8080/project/getAllProject"
-      );
+      const response = await fetch(apiUrl);
       const data = await response.json();
       // console.log(data);
       const newItems: { [id: string]: Item } = {};
@@ -208,9 +217,18 @@ export default function projectmanager() {
     const { source, destination, draggableId } = result;
     const projectId = draggableId;
 
+    //không có destination
     if (!destination) {
       return;
     }
+    // Vị trí ban đầu và cuối cùng giống nhau
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+    ) {
+      return;
+    }
+
     await updateProject(projectId, destination.droppableId);
 
     fetchProjects();
@@ -218,7 +236,7 @@ export default function projectmanager() {
 
   //chỉnh sửa project
   async function updateProject(projectId: string, newStatus: string) {
-    setIsLoading(true);
+    // setIsLoading(true);
 
     console.log(projectId, newStatus);
     try {
@@ -233,6 +251,9 @@ export default function projectmanager() {
           body: JSON.stringify({ status: newStatus }),
         }
       );
+      const result = await response.json();
+      // console.log(result);
+      setRefreshCount((prevCount) => prevCount + 1);
     } catch (error) {
       console.error("Error while updating project:", error);
     } finally {

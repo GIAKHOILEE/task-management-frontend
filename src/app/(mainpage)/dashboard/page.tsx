@@ -23,16 +23,23 @@ export default function page() {
   >({});
 
   const getAllProject = async () => {
+    const userObject = JSON.parse(localStorage.getItem("user") as string);
+    const userId = userObject.userId;
+    const userRole = userObject.role;
+
+    let apiUrl;
+    if (userRole == "ceo") {
+      apiUrl = "http://localhost:8080/project/getAllProject";
+    } else {
+      apiUrl = `http://localhost:8080/project/getProjectByUserId/${userId}`;
+    }
     try {
-      const response = await fetch(
-        "http://localhost:8080/project/getAllProject",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const data: ProjectType[] = await response.json();
       if (response.ok) {
         setDataProject(data);
