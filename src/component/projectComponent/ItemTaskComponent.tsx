@@ -6,6 +6,8 @@ import { UserProjectInProjectContext } from "@/context/UserProjectInProjectConte
 import { IdProjectOwner } from "@/context/IdProjectOwner";
 import { AssigneeType } from "@/typeDatabase/TypeDatabase";
 import AlertComponent from "../alertComponent/AlertComponent";
+import moment from "moment";
+
 type TaskType = {
   id: string;
   idTask: number;
@@ -77,7 +79,20 @@ function ItemTaskComponent({
     AlertSuccessAddUserTask,
   ]);
 
-  // kiểm tra ngày
+  const startProjectString = localStorage.getItem("startProject") as string;
+  const endProjectString = localStorage.getItem("endProject") as string;
+  // đổi chuỗi thành Date
+  const startProjectFormat = moment(
+    startProjectString,
+    "YYYY-MM-DDTHH:mm:ss.SSSZ"
+  ).format("MM-DD-YYYY");
+  const endProjectFormat = moment(
+    endProjectString,
+    "YYYY-MM-DDTHH:mm:ss.SSSZ"
+  ).format("MM-DD-YYYY");
+  const startProject: Date = new Date(startProjectFormat);
+  const endProject: Date = new Date(endProjectFormat);
+  // kiểm tra end-day
   function handleEndDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     const selectedEndDate = new Date(e.target.value);
     const currentStartDate = new Date(startDate);
@@ -86,8 +101,25 @@ function ItemTaskComponent({
       setCheckDay("Ngày kết thúc không được nhỏ hơn ngày bắt đầu.");
       return;
     }
-
+    if (endProject && startProject) {
+      if (selectedEndDate > endProject || selectedEndDate < startProject) {
+        setCheckDay("Không được vượt ngoài thời gian dự án");
+        return;
+      }
+    }
+    setCheckDay("");
     setEndDate(e.target.value);
+  }
+  // Kiểm tra start day
+  function handleStartDateChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const selectStartDate = new Date(e.target.value);
+    console.log(e.target.value);
+    if (selectStartDate > endProject || selectStartDate < startProject) {
+      setCheckDay("Không được vượt ngoài thời gian dự án");
+      return;
+    }
+    setCheckDay("");
+    setStartDate(e.target.value);
   }
   //api cập nhật
   const updateTask = async () => {
@@ -451,7 +483,7 @@ function ItemTaskComponent({
               className={styles.crateProject_form_input}
               type="date"
               value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
+              onChange={handleStartDateChange}
             />
             <div className={styles.crateProject_form_label}>Ngày kết thúc</div>
             <input
