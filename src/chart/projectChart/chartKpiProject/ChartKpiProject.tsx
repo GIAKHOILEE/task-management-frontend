@@ -41,10 +41,10 @@ export default function ChartKpiProject({
   if (kpiProgress >= 0 && kpiProgress < 0.5) {
     kpiProgressClass = "verylow";
     classParameterProgress = "Rất chậm";
-  } else if (kpiProgress >= 0.5 && kpiProgress < 1) {
+  } else if (kpiProgress >= 0.5 && kpiProgress < 0.9) {
     kpiProgressClass = "low";
     classParameterProgress = "Chậm";
-  } else if (kpiProgress >= 1) {
+  } else if (kpiProgress >= 0.9) {
     kpiProgressClass = "onschedule";
     classParameterProgress = "Đúng kế hoạch";
   }
@@ -54,10 +54,10 @@ export default function ChartKpiProject({
   if (kpiPerformance >= 0 && kpiPerformance < 0.5) {
     kpiPerformanceClas = "verylow";
     classParameterPerformance = "Rất chậm";
-  } else if (kpiPerformance >= 0.5 && kpiPerformance < 1) {
+  } else if (kpiPerformance >= 0.5 && kpiPerformance < 0.9) {
     kpiPerformanceClas = "low";
     classParameterPerformance = "Chậm";
-  } else if (kpiPerformance >= 1) {
+  } else if (kpiPerformance >= 0.9) {
     kpiPerformanceClas = "onschedule";
     classParameterPerformance = "Hiệu suất tốt";
   }

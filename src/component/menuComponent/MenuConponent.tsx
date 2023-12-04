@@ -7,25 +7,34 @@ import Link from "next/link";
 export default function MenuConponent() {
   const [isMenuMessVisible, setMenuMessVisibility] = useState(false);
   const [icon, setIcon] = useState("/iconArrowback.png");
+  const [selectedMenu, setSelectedMenu] = useState("dashboard");
 
-  const handleMenuMess = () => {
-    setMenuMessVisibility(!isMenuMessVisible);
-    iconClick();
+  const handleMenuClick = (menu: any) => {
+    setSelectedMenu(menu);
   };
-  const iconClick = () => {
-    if (icon === "/iconArrowback.png") {
-      setIcon("/iconArrowDown.png");
-    } else {
-      setIcon("/iconArrowback.png");
-    }
-  };
+  // const handleMenuMess = () => {
+  //   setMenuMessVisibility(!isMenuMessVisible);
+  //   iconClick();
+  // };
+  // const iconClick = () => {
+  //   if (icon === "/iconArrowback.png") {
+  //     setIcon("/iconArrowDown.png");
+  //   } else {
+  //     setIcon("/iconArrowback.png");
+  //   }
+  // };
 
   return (
     <div className={styles.menu}>
       <div className={styles.menu_head}>CollaboraNet</div>
       <div className={styles.menu_content}>
         <Link href="/dashboard">
-          <div className={styles.menu_content_item}>
+          <div
+            className={`${styles.menu_content_item} ${
+              selectedMenu === "dashboard" ? styles.selectedMenu : ""
+            }`}
+            onClick={() => handleMenuClick("dashboard")}
+          >
             <img
               className={styles.menu_content_icon}
               src="/iconDashboard.png"
@@ -35,7 +44,12 @@ export default function MenuConponent() {
           </div>
         </Link>
         <Link href="/projectmanager">
-          <div className={styles.menu_content_item}>
+          <div
+            className={`${styles.menu_content_item} ${
+              selectedMenu === "projectmanager" ? styles.selectedMenu : ""
+            }`}
+            onClick={() => handleMenuClick("projectmanager")}
+          >
             <img
               className={styles.menu_content_icon}
               src="/iconProject.png"
@@ -45,7 +59,12 @@ export default function MenuConponent() {
           </div>
         </Link>
         <Link href="/messageGpt">
-          <div className={styles.menu_content_item}>
+          <div
+            className={`${styles.menu_content_item} ${
+              selectedMenu === "messageGpt" ? styles.selectedMenu : ""
+            }`}
+            onClick={() => handleMenuClick("messageGpt")}
+          >
             <img
               className={styles.menu_content_icon}
               src="/iconChatbot.png"

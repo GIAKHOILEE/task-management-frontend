@@ -411,7 +411,7 @@ function ItemTaskComponent({
         >
           <div className={styles.crateProject_form}>
             <div className={styles.crateProject_form_title}>
-              Chỉnh sửa dự án
+              Chỉnh sửa công việc
             </div>
             <div className={styles.crateProject_form_label}>Tên Dự Án</div>
             <input
@@ -519,7 +519,7 @@ function ItemTaskComponent({
                 className={styles.crateProject_form_btnCreate}
                 onClick={updateTask}
               >
-                Cập nhật dự án
+                Cập nhật công việc
               </button>
             </div>
           </div>

@@ -54,7 +54,10 @@
 }
 .menu_content_item:hover,
 .menu_messChil_item:hover {
-  background-color: var(--bgColor3);
+  background-color: var(--bgColor);
   cursor: pointer;
   transition: background-color 1s ease;
+}
+.selectedMenu {
+  background-color: var(--bgColor);
 }
