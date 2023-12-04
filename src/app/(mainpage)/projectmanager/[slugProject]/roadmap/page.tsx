@@ -90,9 +90,11 @@ export default function roadmap() {
             // tickFormatter={(tickValue) =>
             //   moment().dayOfYear(tickValue).format("MMM")
             // }
-            tickFormatter={(tickValue) =>
-              "Tháng " + moment().dayOfYear(tickValue).format("M")
-            }
+            tickFormatter={(tickValue) => {
+              const monthOfYear =
+                ((moment().dayOfYear(tickValue).month() + 10) % 12) + 1;
+              return "Tháng " + monthOfYear;
+            }}
             orientation="top"
           />
           <YAxis
@@ -112,25 +114,25 @@ export default function roadmap() {
           <Bar
             dataKey="endDayOfYear"
             shape={({ x, y, width, height, payload }) => {
-              const oneMonth = width / 12 - 6;
+              const oneMonth = width / 12;
               const dayWidth = width / 365;
               const barStartX =
                 x + oneMonth + payload.startDayOfYear * dayWidth;
               const barWidth =
                 (payload.endDayOfYear - payload.startDayOfYear + 1) * dayWidth;
               const { fillColor, borderColor } = getStatusColor(payload.status);
-              console.log(width);
+              // console.log(width);
               return (
                 <g>
                   <Rectangle
-                    x={barStartX - 2}
+                    x={barStartX - 2 - 330 * dayWidth}
                     y={y - 2}
                     width={barWidth + 4}
                     height={height + 4}
                     fill={borderColor}
                   />
                   <Rectangle
-                    x={barStartX}
+                    x={barStartX - 330 * dayWidth}
                     y={y}
                     width={barWidth}
                     height={height}
@@ -141,7 +143,7 @@ export default function roadmap() {
             }}
           />
           <ReferenceLine
-            x={moment().dayOfYear()}
+            x={moment().dayOfYear() - 300}
             stroke="red"
             label="Hôm nay"
           />

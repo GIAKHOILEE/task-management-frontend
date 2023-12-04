@@ -12,6 +12,8 @@ import ItemProjectComponent from "@/component/projectComponent/ItemProjectCompon
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import AlertComponent from "@/component/alertComponent/AlertComponent";
+import moment from "moment";
+
 type Item = {
   itemId: string;
   projectId: string;
@@ -85,6 +87,7 @@ export default function projectmanager() {
     columnOrder: ["todo", "doing", "done"],
   });
 
+  // kiểm tra end day
   function handleEndDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     const selectedEndDate = new Date(e.target.value);
     const currentStartDate = new Date(startDate);
@@ -93,8 +96,19 @@ export default function projectmanager() {
       setCheckDay("Ngày kết thúc không được nhỏ hơn ngày bắt đầu.");
       return;
     }
-
     setEndDate(e.target.value);
+  }
+  // Kiểm tra start day
+  function handleStartDateChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const selectStartDate = new Date(e.target.value);
+    const currentDate = moment().toDate();
+    console.log(e.target.value);
+    if (selectStartDate < currentDate) {
+      setCheckDay("Không thể tạo thời gian ở quá khứ");
+      return;
+    }
+    setCheckDay("");
+    setStartDate(e.target.value);
   }
   //Api lấy tất cả project
   async function fetchProjects() {
@@ -586,7 +600,7 @@ export default function projectmanager() {
               className={styles.crateProject_form_input}
               type="date"
               value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
+              onChange={handleStartDateChange}
             />
             <div className={styles.crateProject_form_label}>Ngày kết thúc</div>
             <input
