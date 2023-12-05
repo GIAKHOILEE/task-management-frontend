@@ -87,14 +87,9 @@ export default function roadmap() {
             type="number"
             domain={[0, 365]}
             ticks={ticksForMonths}
-            // tickFormatter={(tickValue) =>
-            //   moment().dayOfYear(tickValue).format("MMM")
-            // }
-            tickFormatter={(tickValue) => {
-              const monthOfYear =
-                ((moment().dayOfYear(tickValue).month() + 10) % 12) + 1;
-              return "Tháng " + monthOfYear;
-            }}
+            tickFormatter={(tickValue) =>
+              "Tháng " + moment().dayOfYear(tickValue).format("M")
+            }
             orientation="top"
           />
           <YAxis
@@ -111,41 +106,31 @@ export default function roadmap() {
               return value;
             }}
           />
+          <Bar dataKey="startDayOfYear" stackId="a" fill="#dff6ff00" />
           <Bar
-            dataKey="endDayOfYear"
+            dataKey="duration"
+            stackId="a"
             shape={({ x, y, width, height, payload }) => {
-              const oneMonth = width / 12;
-              const dayWidth = width / 365;
-              const barStartX =
-                x + oneMonth + payload.startDayOfYear * dayWidth;
-              const barWidth =
-                (payload.endDayOfYear - payload.startDayOfYear + 1) * dayWidth;
               const { fillColor, borderColor } = getStatusColor(payload.status);
-              // console.log(width);
               return (
                 <g>
-                  <Rectangle
-                    x={barStartX - 2 - 330 * dayWidth}
+                  <rect
+                    x={x - 2}
                     y={y - 2}
-                    width={barWidth + 4}
+                    width={width + 4}
                     height={height + 4}
                     fill={borderColor}
                   />
-                  <Rectangle
-                    x={barStartX - 330 * dayWidth}
+                  <rect
+                    x={x}
                     y={y}
-                    width={barWidth}
+                    width={width}
                     height={height}
                     fill={fillColor}
                   />
                 </g>
               );
             }}
-          />
-          <ReferenceLine
-            x={moment().dayOfYear() - 300}
-            stroke="red"
-            label="Hôm nay"
           />
         </BarChart>
       </div>

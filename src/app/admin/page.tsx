@@ -205,7 +205,7 @@ export default function page() {
                 {user.firstname} {user.lastname}
               </td>
               <td>{user.email}</td>
-              <td>{user.phone}</td>
+              <td>+84-{user.phone}</td>
 
               <td className={styles.column_sm}>
                 <img
