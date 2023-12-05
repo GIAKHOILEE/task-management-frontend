@@ -52,6 +52,7 @@ export default function projectmanager() {
   const [isUserProject, setIsUserProject] = useState(false);
   const [checkDay, setCheckDay] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [count, setCount] = useState(0);
 
   const [alertSuccessCrProject, setAlertShowSuccessCrProject] = useState(false);
   const [alertInfoNotUserProject, setAlertInfoNotUserProject] = useState(false);
@@ -217,15 +218,17 @@ export default function projectmanager() {
           role: "owner",
         };
         addMemberToProject(memberData);
-        fetchProjects();
+        // fetchProjects();
+        setCount((prevCount) => prevCount + 1);
       }
-      // const data = await response.json();
       // console.log("Dữ liệu nhận được:", data);
     } catch (error) {
       console.error(error);
     }
   };
-
+  useEffect(() => {
+    fetchProjects();
+  }, [count]);
   // kéo các item giữa các cột
   async function handleOnDragEnd(result: DropResult) {
     const { source, destination, draggableId } = result;
@@ -631,7 +634,10 @@ export default function projectmanager() {
               </button>
               <button
                 className={styles.crateProject_form_btnCreate}
-                onClick={handleSave}
+                onClick={() => {
+                  handleSave();
+                  setOpenCreateForm(false);
+                }}
               >
                 Tạo Dự Án
               </button>
