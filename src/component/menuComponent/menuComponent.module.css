@@ -1,0 +1,63 @@
+.menu {
+  position: fixed;
+  width: 260px;
+  height: 100vh;
+}
+.menu_head {
+  height: 90px;
+  background-color: var(--bgColor);
+  color: var(--textColor);
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 90px;
+}
+.menu_content {
+  height: 40vh;
+  margin-top: 15%;
+}
+.menu_content_icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}
+.menu_content_icon_arrow {
+  width: 16px;
+  height: 16px;
+  margin-left: auto;
+}
+.menu_content_item {
+  width: 100%;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  color: var(--textColor);
+  font-weight: 500;
+  font-size: 16px;
+  height: 60px;
+}
+/* .menu_messChil {
+} */
+.menu_messChil_item {
+  background-color: var(--bgColor);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding-left: 45px;
+  font-weight: 500;
+  color: var(--textColor);
+}
+.menu_messChil_icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.menu_content_item:hover,
+.menu_messChil_item:hover {
+  background-color: var(--bgColor);
+  cursor: pointer;
+  transition: background-color 1s ease;
+}
+.selectedMenu {
+  background-color: var(--bgColor);
+}
