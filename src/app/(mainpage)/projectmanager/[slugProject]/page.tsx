@@ -9,7 +9,11 @@ import PieChartTaskLevel from "@/chart/taskChart/pieChartLevel/PieChartTaskLevel
 import BarChartTaskStatus from "@/chart/taskChart/barChartStatus/BarChartTaskStatus";
 import StackBarChartTaskStatus from "@/chart/taskChart/stackBarChartStatus/StackBarChartTaskStatus";
 import LineChartTask from "@/chart/taskChart/lineChartTask/LineChartTask";
-import { TaskType, AssigneeType } from "@/typeDatabase/TypeDatabase";
+import {
+  TaskType,
+  AssigneeType,
+  ProjectType,
+} from "@/typeDatabase/TypeDatabase";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
@@ -17,9 +21,11 @@ const Overview: React.FC = () => {
   const projectID = useContext(ProjectIDContext);
   const [tasks, setTasks] = useState<TaskType[]>([]);
   const [assignment, setAssignment] = useState<AssigneeType[]>([]);
+  const [projectData, setProjectData] = useState<ProjectType>();
 
   const componentRef = useRef<HTMLDivElement | null>(null);
 
+  //tạo file pdf
   const downloadPDF = () => {
     if (!componentRef.current) return;
 
@@ -34,7 +40,7 @@ const Overview: React.FC = () => {
       const imgHeight = (canvas.height * pdfWidth) / canvas.width;
 
       pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-      pdf.save("Thống kê công việc.pdf");
+      pdf.save(`Thống kê công việc ${projectData?.projectName}.pdf`);
     });
   };
 
@@ -66,9 +72,32 @@ const Overview: React.FC = () => {
   useEffect(() => {
     getAllTask();
     getAllAssignment();
+    fetchData();
   }, [projectID]);
 
   // console.log(assignment);
+  const fetchData = async () => {
+    try {
+      // Gọi API để lấy dữ liệu
+      const response = await fetch(
+        `http://localhost:8080/project/getAllProject`
+      );
+      const data = await response.json();
+
+      // Tìm kiếm project có id bằng projectID
+      const foundProject = data.find(
+        (project: any) => project.projectId == projectID
+      );
+
+      // Lưu dữ liệu vào state
+      if (foundProject) {
+        setProjectData(foundProject);
+        console.log(foundProject);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   return (
     <>
